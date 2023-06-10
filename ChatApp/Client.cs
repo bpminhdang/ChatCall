@@ -51,15 +51,20 @@ namespace ChatApp
 
         private void ReceiveVideo(Socket client)
         {
-            while (client.Connected && btCall.Text == "Stop")
+            while (client.Connected && (btCall.Text == "Stop" || btScreenShare.Text == "Stop"))
             {
                 if (netStream != null)
                 {
+                    //MessageBox.Show("ád");
                     byte[] imageBytes = new byte[100000];
                     netStream.Read(imageBytes, 0, imageBytes.Length);
-                    ms = new MemoryStream(imageBytes);
-                    Image image = Image.FromStream(ms);
-                    ptbImage.Image = image;
+                    try
+                    {
+                        ms = new MemoryStream(imageBytes);
+                        Image image = Image.FromStream(ms);
+                        ptbImage.Image = image;
+                    }
+                    catch { continue; }
                 }
             }
 

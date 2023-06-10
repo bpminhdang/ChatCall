@@ -146,15 +146,15 @@ namespace ChatApp
 
         private void btScreenShare_Click(object sender, EventArgs e)
         {
-            // messageSend("//Call\n");
+            messageSend("//Screen");
             ptbImage.BringToFront();
+            Thread.Sleep(1000);
+            VideoTimer.Stop();
             ScreenTimer.Start();
         }
 
         private void ScreenTimer_Tick(object sender, EventArgs e)
         {
-
-
             // Chụp ảnh màn hình hiện tại
             Bitmap screenShot = screenshotGet();
             // Chuyển đổi ảnh sang mảng byte để truyền qua socket
@@ -163,14 +163,9 @@ namespace ChatApp
             {
                 screenShot.Save(ms, ImageFormat.Jpeg);
                 imageBytes = ms.ToArray();
-                //VideoSend(ptbImage.Image);
             }
-
-
-            //Bitmap screenShot = screenshotGet();
-
-            //ptbImage.Image = screenShot;
-            //VideoSend(ptbImage.Image);
+            ptbImage.Image = screenShot;
+            VideoSend(ptbImage.Image);
         }
 
         private Bitmap screenshotGet()
