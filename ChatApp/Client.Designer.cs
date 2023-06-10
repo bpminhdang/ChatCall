@@ -69,7 +69,6 @@
             btCall.TabIndex = 15;
             btCall.Text = "Call";
             btCall.UseVisualStyleBackColor = true;
-            btCall.TextChanged += btCall_TextChanged;
             btCall.Click += btCall_Click;
             // 
             // btSend
@@ -80,7 +79,7 @@
             btSend.TabIndex = 14;
             btSend.Text = "Send";
             btSend.UseVisualStyleBackColor = true;
-            btSend.Click += btSend_Click;
+            btSend.Click += bt_Send_Click;
             // 
             // tbMessage
             // 

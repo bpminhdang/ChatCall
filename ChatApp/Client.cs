@@ -49,26 +49,7 @@ namespace ChatApp
             }
         }
 
-        private void ReceiveVideo(Socket client)
-        {
-            while (client.Connected && (btCall.Text == "Stop" || btScreenShare.Text == "Stop"))
-            {
-                if (netStream != null)
-                {
-                    //MessageBox.Show("ád");
-                    byte[] imageBytes = new byte[100000];
-                    netStream.Read(imageBytes, 0, imageBytes.Length);
-                    try
-                    {
-                        ms = new MemoryStream(imageBytes);
-                        Image image = Image.FromStream(ms);
-                        ptbImage.Image = image;
-                    }
-                    catch { continue; }
-                }
-            }
-
-        }
+      
 
         public void ReceiveMessage(Socket tcpClient_Client)
         {
@@ -77,7 +58,7 @@ namespace ChatApp
                 byte[] recv = new byte[1];
                 bool isRunning = true;
 
-                string receiveType = "Message";
+                string receiveType = "Message";  //Khi nhận được command sẽ đổi biến receive type và không nhận message nữa
                 while (tcpClient_Client.Connected)
                 {
                     if (receiveType == "Message")
@@ -91,11 +72,10 @@ namespace ChatApp
                             Chr = Encoding.UTF8.GetString(recv);
                             temp += Chr;
                         }
-                        if (temp.StartsWith("//Call"))
+                        if (temp.StartsWith("//Call")) 
                         {
                             receiveType = "Call";
                             btCall.Text = "Stop";
-
                             continue;
                         }
                         else if (temp.StartsWith("//Screen"))
@@ -111,6 +91,7 @@ namespace ChatApp
                     {
                         ptbImage.BringToFront();
                         ReceiveVideo(tcpClient_Client);
+                        //Khi dừng nhận video sẽ đổi biến ReceiveType và tiếp tục nhân message
                         ptbImage.SendToBack();
                         receiveType = "Message";
                     }
@@ -118,6 +99,7 @@ namespace ChatApp
                     {
                         ptbImage.BringToFront();
                         ReceiveVideo(tcpClient_Client);
+                        //Khi dừng nhận video sẽ đổi biến ReceiveType và tiếp tục nhân message
                         ptbImage.SendToBack();
                         receiveType = "Message";
                     }
@@ -125,6 +107,31 @@ namespace ChatApp
 
             });
         }
+
+        /// <summary>
+        /// Dùng khi nhận được message call hoặc share màn hình, dừng khi nhấn nút stop
+        /// </summary>
+        /// <param name="client"></param>
+        private void ReceiveVideo(Socket client)
+        {
+            while (client.Connected && (btCall.Text == "Stop" || btScreenShare.Text == "Stop"))
+            {
+                if (netStream != null)
+                {
+                    byte[] imageBytes = new byte[100000];
+                    netStream.Read(imageBytes, 0, imageBytes.Length);
+                    try
+                    {
+                        ms = new MemoryStream(imageBytes);
+                        Image image = Image.FromStream(ms);
+                        ptbImage.Image = image;
+                    }
+                    catch {  }
+                }
+            }
+
+        }
+
 
         public void messageSend(string dataS)
         {
@@ -136,52 +143,29 @@ namespace ChatApp
             }
         }
 
-        //private void VideoSend(Image image)
-        //{
-        //    using (MemoryStream ms = new MemoryStream())
-        //    {
-        //        image.Save(ms, ImageFormat.Jpeg); // lưu đối tượng Image vào MemoryStream với định dạng JPEG
-        //        byte[] imageBytes = ms.ToArray(); // chuyển đổi MemoryStream thành một mảng byte
-        //        netStream.Write(imageBytes, 0, imageBytes.Length);// chuyển đổi MemoryStream thành một mảng byte
-        //    }
-
-        //}
-
         private void bt_Send_Click(object sender, EventArgs e)
         {
             messageSend(tbMessage.Text);
             tbMessage.Clear();
         }
 
-        //private void VideoTimer_Tick(object sender, EventArgs e)
-        //{
-        //    Mat frame = new Mat();
-        //    capture.Read(frame);
-        //    ptbImage.Image = BitmapConverter.ToBitmap(frame);
-        //    VideoSend(ptbImage.Image);
-        //}
-
         private void btCall_Click(object sender, EventArgs e)
         {
             if (btCall.Text == "Stop")
+            {
+                messageSend("//Stop"); //Cần xử lý hàm nhận bên server để dừng share
                 btCall.Text = "Call";
+            }
         }
 
         private void btScreenShare_Click(object sender, EventArgs e)
         {
-            //ReceiveVideo(tcpClient.Client);
-
+            if (btScreenShare.Text == "Stop")
+            {
+                messageSend("//Stop"); //Cần xử lý hàm nhận bên server để dừng share
+                btScreenShare.Text = "Screen share";
+            }
         }
 
-        private void btSend_Click(object sender, EventArgs e)
-        {
-            messageSend(tbMessage.Text);
-        }
-
-        private void btCall_TextChanged(object sender, EventArgs e)
-        {
-            //if (btCall.Text == "Stop")
-            //    btCall.Text = "Call";
-        }
     }
 }
