@@ -51,19 +51,18 @@ namespace ChatApp
 
         private void ReceiveVideo(Socket client)
         {
-            
-                while (client.Connected)
+            while (client.Connected && btCall.Text == "Stop")
+            {
+                if (netStream != null)
                 {
-                    if (netStream != null)
-                    {
-                        byte[] imageBytes = new byte[100000];
-                        netStream.Read(imageBytes, 0, imageBytes.Length);
-                        ms = new MemoryStream(imageBytes);
-                        Image image = Image.FromStream(ms);
-                        ptbImage.Image = image;
-                    }
+                    byte[] imageBytes = new byte[100000];
+                    netStream.Read(imageBytes, 0, imageBytes.Length);
+                    ms = new MemoryStream(imageBytes);
+                    Image image = Image.FromStream(ms);
+                    ptbImage.Image = image;
                 }
-           
+            }
+
         }
 
         public void ReceiveMessage(Socket tcpClient_Client)
@@ -74,7 +73,7 @@ namespace ChatApp
                 bool isRunning = true;
 
                 string receiveType = "Message";
-                while (tcpClient_Client.Connected && isRunning)
+                while (tcpClient_Client.Connected)
                 {
                     if (receiveType == "Message")
                     {
@@ -90,6 +89,14 @@ namespace ChatApp
                         if (temp.StartsWith("//Call"))
                         {
                             receiveType = "Call";
+                            btCall.Text = "Stop";
+
+                            continue;
+                        }
+                        else if (temp.StartsWith("//Screen"))
+                        {
+                            receiveType = "Screen";
+                            btScreenShare.Text = "Stop";
                             continue;
                         }
                         rtbRecv.Text += temp;
@@ -97,64 +104,79 @@ namespace ChatApp
                     }
                     else if (receiveType == "Call")
                     {
-                       ReceiveVideo(tcpClient_Client);
                         ptbImage.BringToFront();
+                        ReceiveVideo(tcpClient_Client);
+                        ptbImage.SendToBack();
+                        receiveType = "Message";
+                    }
+                    else if (receiveType == "Screen")
+                    {
+                        ptbImage.BringToFront();
+                        ReceiveVideo(tcpClient_Client);
+                        ptbImage.SendToBack();
+                        receiveType = "Message";
                     }
                 }
-            
+
             });
         }
 
-    public void messageSend(string dataS)
-    {
-        if (netStream != null)
+        public void messageSend(string dataS)
         {
-            byte[] data = System.Text.Encoding.UTF8.GetBytes(dataS + "\n");
-            netStream.Write(data, 0, data.Length);
-            rtbSend.Text += tbMessage.Text + "\n";
+            if (netStream != null)
+            {
+                byte[] data = System.Text.Encoding.UTF8.GetBytes(dataS + "\n");
+                netStream.Write(data, 0, data.Length);
+                rtbSend.Text += tbMessage.Text + "\n";
+            }
+        }
+
+        //private void VideoSend(Image image)
+        //{
+        //    using (MemoryStream ms = new MemoryStream())
+        //    {
+        //        image.Save(ms, ImageFormat.Jpeg); // lưu đối tượng Image vào MemoryStream với định dạng JPEG
+        //        byte[] imageBytes = ms.ToArray(); // chuyển đổi MemoryStream thành một mảng byte
+        //        netStream.Write(imageBytes, 0, imageBytes.Length);// chuyển đổi MemoryStream thành một mảng byte
+        //    }
+
+        //}
+
+        private void bt_Send_Click(object sender, EventArgs e)
+        {
+            messageSend(tbMessage.Text);
+            tbMessage.Clear();
+        }
+
+        //private void VideoTimer_Tick(object sender, EventArgs e)
+        //{
+        //    Mat frame = new Mat();
+        //    capture.Read(frame);
+        //    ptbImage.Image = BitmapConverter.ToBitmap(frame);
+        //    VideoSend(ptbImage.Image);
+        //}
+
+        private void btCall_Click(object sender, EventArgs e)
+        {
+            if (btCall.Text == "Stop")
+                btCall.Text = "Call";
+        }
+
+        private void btScreenShare_Click(object sender, EventArgs e)
+        {
+            //ReceiveVideo(tcpClient.Client);
+
+        }
+
+        private void btSend_Click(object sender, EventArgs e)
+        {
+            messageSend(tbMessage.Text);
+        }
+
+        private void btCall_TextChanged(object sender, EventArgs e)
+        {
+            //if (btCall.Text == "Stop")
+            //    btCall.Text = "Call";
         }
     }
-
-    //private void VideoSend(Image image)
-    //{
-    //    using (MemoryStream ms = new MemoryStream())
-    //    {
-    //        image.Save(ms, ImageFormat.Jpeg); // lưu đối tượng Image vào MemoryStream với định dạng JPEG
-    //        byte[] imageBytes = ms.ToArray(); // chuyển đổi MemoryStream thành một mảng byte
-    //        netStream.Write(imageBytes, 0, imageBytes.Length);// chuyển đổi MemoryStream thành một mảng byte
-    //    }
-
-    //}
-
-    private void bt_Send_Click(object sender, EventArgs e)
-    {
-        messageSend(tbMessage.Text);
-        tbMessage.Clear();
-    }
-
-    //private void VideoTimer_Tick(object sender, EventArgs e)
-    //{
-    //    Mat frame = new Mat();
-    //    capture.Read(frame);
-    //    ptbImage.Image = BitmapConverter.ToBitmap(frame);
-    //    VideoSend(ptbImage.Image);
-    //}
-
-    private void btCall_Click(object sender, EventArgs e)
-    {
-        //VideoTimer.Start();
-        //ReceiveVideo(tcpClient.Client);
-    }
-
-    private void btScreenShare_Click(object sender, EventArgs e)
-    {
-        //ReceiveVideo(tcpClient.Client);
-
-    }
-
-    private void btSend_Click(object sender, EventArgs e)
-    {
-        messageSend(tbMessage.Text);
-    }
-}
 }

@@ -69,6 +69,7 @@
             btCall.TabIndex = 15;
             btCall.Text = "Call";
             btCall.UseVisualStyleBackColor = true;
+            btCall.TextChanged += btCall_TextChanged;
             btCall.Click += btCall_Click;
             // 
             // btSend

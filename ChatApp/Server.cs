@@ -53,7 +53,6 @@ namespace ChatApp
                     string clientIPAddress = clientEndPoint.ToString();
                     lbStatus.Text = " Connected!";
                     ReceiveMessage(tcpClient.Client);
-                    //ReceiveVideo(tcpClient);
                 }
                 catch (Exception ex)
                 {
@@ -62,25 +61,25 @@ namespace ChatApp
             }
         }
 
-        private void ReceiveVideo(TcpClient tcpClient)
-        {
-            Task.Run(() =>
-            {
-                byte[] recv = new byte[1024];
-                while (tcpClient.Connected)
-                {
-                    NetworkStream stream = tcpClient.GetStream();
-                    byte[] imageBytes = new byte[tcpClient.ReceiveBufferSize];
-                    int bytesRead = stream.Read(imageBytes, 0, imageBytes.Length);
-                    using (MemoryStream memoryStream = new MemoryStream(imageBytes, 0, bytesRead))
-                    {
-                        Image image = Image.FromStream(memoryStream, true);
-                        ptbImage.Image = image;
-                    }
+        //private void ReceiveVideo(TcpClient tcpClient)
+        //{
+        //    Task.Run(() =>
+        //    {
+        //        byte[] recv = new byte[1024];
+        //        while (tcpClient.Connected)
+        //        {
+        //            NetworkStream stream = tcpClient.GetStream();
+        //            byte[] imageBytes = new byte[tcpClient.ReceiveBufferSize];
+        //            int bytesRead = stream.Read(imageBytes, 0, imageBytes.Length);
+        //            using (MemoryStream memoryStream = new MemoryStream(imageBytes, 0, bytesRead))
+        //            {
+        //                Image image = Image.FromStream(memoryStream, true);
+        //                ptbImage.Image = image;
+        //            }
 
-                }
-            });
-        }
+        //        }
+        //    });
+        //}
 
         private void ReceiveMessage(Socket tcpClient_Client)
         {
@@ -121,8 +120,7 @@ namespace ChatApp
             Mat frame = new Mat();
             capture.Read(frame);
             ptbImage.Image = BitmapConverter.ToBitmap(frame);
-            if (ptbImage.Image != null)
-                VideoSend(ptbImage.Image);
+            VideoSend(ptbImage.Image);
         }
 
         private void VideoSend(Image image)
@@ -138,15 +136,19 @@ namespace ChatApp
 
         private void btCall_Click(object sender, EventArgs e)
         {
+            messageSend("//Call");
+            ptbImage.BringToFront();
+            Thread.Sleep(1000);
             ScreenTimer.Stop();
             VideoTimer.Start();
+
         }
 
         private void btScreenShare_Click(object sender, EventArgs e)
         {
-            messageSend("//Call\n");
+            // messageSend("//Call\n");
             ptbImage.BringToFront();
-            VideoTimer.Start();
+            ScreenTimer.Start();
         }
 
         private void ScreenTimer_Tick(object sender, EventArgs e)
@@ -161,7 +163,7 @@ namespace ChatApp
             {
                 screenShot.Save(ms, ImageFormat.Jpeg);
                 imageBytes = ms.ToArray();
-                VideoSend(ptbImage.Image);
+                //VideoSend(ptbImage.Image);
             }
 
 

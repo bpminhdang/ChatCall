@@ -128,11 +128,11 @@
             // 
             // VideoTimer
             // 
+            VideoTimer.Interval = 16;
             VideoTimer.Tick += VideoTimer_Tick;
             // 
             // ScreenTimer
             // 
-            ScreenTimer.Interval = 1000;
             ScreenTimer.Tick += ScreenTimer_Tick;
             // 
             // Server
