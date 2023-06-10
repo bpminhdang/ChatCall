@@ -1,0 +1,160 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Net.Sockets;
+using System.Net;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using VisioForge.Libs.TagLib.Jpeg;
+using VisioForge.MediaFramework.ONVIF;
+using OpenCvSharp;
+using OpenCvSharp.Extensions;
+using System.Text.RegularExpressions;
+using System.Drawing.Imaging;
+
+namespace ChatApp
+{
+    public partial class Client : Form
+    {
+        VideoCapture capture = new VideoCapture(0);
+        TcpClient tcpClient = new TcpClient();
+        NetworkStream netStream;
+        MemoryStream ms;
+        public Client()
+        {
+            CheckForIllegalCrossThreadCalls = false;
+            InitializeComponent();
+            //bt_Disconnect.Enabled = false;
+        }
+
+
+
+        private void btConnect_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                IPEndPoint ipEndPoint = new IPEndPoint(System.Net.IPAddress.Parse("127.0.0.1"), 9000);
+                tcpClient.Connect(ipEndPoint);
+                netStream = tcpClient.GetStream();
+                ReceiveMessage(tcpClient.Client);
+            }
+            catch
+            {
+                return;
+            }
+        }
+
+        private void ReceiveVideo(Socket client)
+        {
+            
+                while (client.Connected)
+                {
+                    if (netStream != null)
+                    {
+                        byte[] imageBytes = new byte[100000];
+                        netStream.Read(imageBytes, 0, imageBytes.Length);
+                        ms = new MemoryStream(imageBytes);
+                        Image image = Image.FromStream(ms);
+                        ptbImage.Image = image;
+                    }
+                }
+           
+        }
+
+        public void ReceiveMessage(Socket tcpClient_Client)
+        {
+            Task.Run(() =>
+            {
+                byte[] recv = new byte[1];
+                bool isRunning = true;
+
+                string receiveType = "Message";
+                while (tcpClient_Client.Connected && isRunning)
+                {
+                    if (receiveType == "Message")
+                    {
+                        string Chr = "";
+                        string temp = "";
+                        while (Chr != "\n")
+                        {
+
+                            tcpClient_Client.Receive(recv);
+                            Chr = Encoding.UTF8.GetString(recv);
+                            temp += Chr;
+                        }
+                        if (temp.StartsWith("//Call"))
+                        {
+                            receiveType = "Call";
+                            continue;
+                        }
+                        rtbRecv.Text += temp;
+                        rtbSend.Text += "\n";
+                    }
+                    else if (receiveType == "Call")
+                    {
+                       ReceiveVideo(tcpClient_Client);
+                        ptbImage.BringToFront();
+                    }
+                }
+            
+            });
+        }
+
+    public void messageSend(string dataS)
+    {
+        if (netStream != null)
+        {
+            byte[] data = System.Text.Encoding.UTF8.GetBytes(dataS + "\n");
+            netStream.Write(data, 0, data.Length);
+            rtbSend.Text += tbMessage.Text + "\n";
+        }
+    }
+
+    //private void VideoSend(Image image)
+    //{
+    //    using (MemoryStream ms = new MemoryStream())
+    //    {
+    //        image.Save(ms, ImageFormat.Jpeg); // lưu đối tượng Image vào MemoryStream với định dạng JPEG
+    //        byte[] imageBytes = ms.ToArray(); // chuyển đổi MemoryStream thành một mảng byte
+    //        netStream.Write(imageBytes, 0, imageBytes.Length);// chuyển đổi MemoryStream thành một mảng byte
+    //    }
+
+    //}
+
+    private void bt_Send_Click(object sender, EventArgs e)
+    {
+        messageSend(tbMessage.Text);
+        tbMessage.Clear();
+    }
+
+    //private void VideoTimer_Tick(object sender, EventArgs e)
+    //{
+    //    Mat frame = new Mat();
+    //    capture.Read(frame);
+    //    ptbImage.Image = BitmapConverter.ToBitmap(frame);
+    //    VideoSend(ptbImage.Image);
+    //}
+
+    private void btCall_Click(object sender, EventArgs e)
+    {
+        //VideoTimer.Start();
+        //ReceiveVideo(tcpClient.Client);
+    }
+
+    private void btScreenShare_Click(object sender, EventArgs e)
+    {
+        //ReceiveVideo(tcpClient.Client);
+
+    }
+
+    private void btSend_Click(object sender, EventArgs e)
+    {
+        messageSend(tbMessage.Text);
+    }
+}
+}
