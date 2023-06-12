@@ -82,7 +82,7 @@ namespace ChatApp
                                 {
                                     Image image = Image.FromStream(ms);
                                     ptbImage.Image = image;
-                                    MessageBox.Show("Client nhan 1 anh");
+                                    //MessageBox.Show("Client nhan 1 anh");
 
                                 }
                             }
@@ -157,7 +157,7 @@ namespace ChatApp
             ptbYou.Image = BitmapConverter.ToBitmap(frame);
             Byte[] imageBytes = frame.ToBytes();
             streamPic.Write(imageBytes, 0, imageBytes.Length);
-            MessageBox.Show("Client gui 1 anh");
+            //MessageBox.Show("Client gui 1 anh");
 
         }
 
