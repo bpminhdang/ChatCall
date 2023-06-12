@@ -82,7 +82,7 @@ namespace ChatApp
                                 {
                                     Image image = Image.FromStream(ms);
                                     ptbImage.Image = image;
-                                    //MessageBox.Show("Client nhan 1 anh");
+                                    MessageBox.Show("Client nhan 1 anh");
 
                                 }
                             }

@@ -120,7 +120,7 @@
             // 
             // VideoTimer
             // 
-            VideoTimer.Interval = 1000;
+            VideoTimer.Interval = 41;
             VideoTimer.Tick += VideoTimer_Tick;
             // 
             // ScreenTimer
@@ -136,7 +136,6 @@
             ptbYou.SizeMode = PictureBoxSizeMode.CenterImage;
             ptbYou.TabIndex = 19;
             ptbYou.TabStop = false;
-            ptbYou.Visible = false;
             // 
             // Server
             // 
