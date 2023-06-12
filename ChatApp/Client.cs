@@ -164,8 +164,10 @@ namespace ChatApp
             ptbYou.Image = BitmapConverter.ToBitmap(frame);
             Byte[] imageBytes = frame.ToBytes();
             streamPic.Write(imageBytes, 0, imageBytes.Length);
-            //MessageBox.Show("Client gui 1 anh");
 
+            int temp = int.Parse(label2.Text);
+            temp++;
+            label1.Text = temp.ToString();
         }
 
         private void ScreenTimer_Tick(object sender, EventArgs e)
@@ -194,6 +196,10 @@ namespace ChatApp
             this.Invoke((MethodInvoker)delegate
             {
                 timer.Start();
+                if (timer.ToString() == "VideoTimer")
+                {
+                    btCall.Text = "Stop";
+                }
             });
 
         }
@@ -203,6 +209,10 @@ namespace ChatApp
             this.Invoke((MethodInvoker)delegate
             {
                 timer.Stop();
+                if (timer.ToString() == "VideoTimer")
+                {
+                    btCall.Text = "Start";
+                }
             });
 
         }
