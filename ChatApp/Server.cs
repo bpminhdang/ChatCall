@@ -153,7 +153,7 @@ namespace ChatApp
         private void btCall_Click(object sender, EventArgs e)
         {
             Call();
-            messageSend("//Call");
+            //messageSend("//Call");
         }
 
         private void Call()
