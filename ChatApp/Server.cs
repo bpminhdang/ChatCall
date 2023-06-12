@@ -194,5 +194,23 @@ namespace ChatApp
         {
             capture = new VideoCapture(0);
         }
+
+        public void StartTimer(System.Windows.Forms.Timer timer)
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                timer.Start();
+            });
+
+        }
+
+        public void StopTimer(System.Windows.Forms.Timer timer)
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                timer.Stop();
+            });
+
+        }
     }
 }

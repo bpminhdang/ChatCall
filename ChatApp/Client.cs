@@ -72,8 +72,8 @@ namespace ChatApp
                     {
                         if (streamPic != null)
                         {
-                            ScreenTimer.Stop();
-                            //VideoTimer.Stop();
+                            StopTimer(ScreenTimer);
+                            //StopTimer(VideoTimer);
                             byte[] imageBytes = new byte[10000000];
                             streamPic.Read(imageBytes, 0, imageBytes.Length);
                             try
@@ -127,15 +127,15 @@ namespace ChatApp
         private void Call()
         {
             ptbYou.Visible = true;
-            ScreenTimer.Stop();
-            VideoTimer.Start();
+            StopTimer(ScreenTimer);
+            StartTimer(VideoTimer);
         }
 
 
         private void btScreenShare_Click(object sender, EventArgs e)
         {
-            VideoTimer.Stop();
-            ScreenTimer.Start();
+            StopTimer(VideoTimer);
+            StartTimer(ScreenTimer);
         }
 
 
@@ -180,6 +180,24 @@ namespace ChatApp
         private void Client_Load(object sender, EventArgs e)
         {
             capture = new VideoCapture(0);
+        }
+
+        public void StartTimer(System.Windows.Forms.Timer timer)
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                timer.Start();
+            });
+
+        }
+
+        public void StopTimer(System.Windows.Forms.Timer timer)
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                timer.Stop();
+            });
+
         }
     }
 }
