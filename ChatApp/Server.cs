@@ -150,6 +150,7 @@ namespace ChatApp
         private void Call()
         {
             ptbYou.Visible = true;
+            MessageBox.Show("Video timer cua Server bat");
             ScreenTimer.Stop();
             VideoTimer.Start();
         }
