@@ -41,6 +41,7 @@
             ScreenTimer = new System.Windows.Forms.Timer(components);
             ptbYou = new PictureBox();
             textBox1 = new TextBox();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)ptbImage).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ptbYou).BeginInit();
             SuspendLayout();
@@ -145,11 +146,21 @@
             textBox1.TabIndex = 19;
             textBox1.Text = "10.0.138.40";
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(277, 28);
+            label1.Name = "label1";
+            label1.Size = new Size(22, 25);
+            label1.TabIndex = 21;
+            label1.Text = "0";
+            // 
             // Client
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(937, 526);
+            Controls.Add(label1);
             Controls.Add(textBox1);
             Controls.Add(ptbYou);
             Controls.Add(btScreenShare);
@@ -183,5 +194,6 @@
         private System.Windows.Forms.Timer ScreenTimer;
         private PictureBox ptbYou;
         private TextBox textBox1;
+        private Label label1;
     }
 }

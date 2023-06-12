@@ -102,11 +102,15 @@ namespace ChatApp
                             {
                                 System.Drawing.Image image = System.Drawing.Image.FromStream(ms);
                                 ptbImage.Image = image;
-                                MessageBox.Show("Server nhan 1 anh");
+                                int temp = int.Parse(label1.Text);
+                                    temp++;
+                                label1.Text = temp.ToString();
+                                //MessageBox.Show("Server nhan 1 anh");
 
                             }
                         }
-                        catch { }
+                        catch (Exception ex) { MessageBox.Show(ex.Message); }
+
                     }
                 }
             }
