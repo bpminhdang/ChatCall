@@ -23,6 +23,8 @@ namespace ChatApp
         string ipAddress;
         private VideoCapture capture;
         string Type;
+        private bool True = true;
+
 
         public VideoClient(string ipAddress, string Type)
         {
@@ -36,7 +38,7 @@ namespace ChatApp
             clientPic = new TcpClient();
             if (Type == "Call")
             {
-                capture = new VideoCapture();
+                capture = new VideoCapture(0);
                 clientPic.Connect(ipAddress, 8082);
             }
             else
@@ -92,6 +94,7 @@ namespace ChatApp
 
             }
             pictureBox2.Image = screenShot;
+            Thread.Sleep(16);
         }
 
         private Bitmap screenshotGet()
@@ -107,11 +110,15 @@ namespace ChatApp
 
         private void CallSend()
         {
-            Mat frame = new Mat();
-            capture.Read(frame);
-            pictureBox2.Image = BitmapConverter.ToBitmap(frame);
-            Byte[] imageBytes = frame.ToBytes();
-            streamPic.Write(imageBytes, 0, imageBytes.Length);
+            while (True)
+            {
+                Mat frame = new Mat();
+                capture.Read(frame);
+                pictureBox2.Image = BitmapConverter.ToBitmap(frame);
+                Byte[] imageBytes = frame.ToBytes();
+                streamPic.Write(imageBytes, 0, imageBytes.Length);
+                Thread.Sleep(41);
+            }
         }
 
 
@@ -119,6 +126,8 @@ namespace ChatApp
         {
             streamPic.Dispose();
             clientPic.Close();
+            True = false; //Stop any loop in the form
+
         }
     }
 }

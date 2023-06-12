@@ -36,17 +36,18 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Dock = DockStyle.Left;
+            pictureBox1.Dock = DockStyle.Fill;
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(977, 566);
+            pictureBox1.Size = new Size(1001, 566);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
             // pictureBox2
             // 
-            pictureBox2.Location = new Point(732, 432);
+            pictureBox2.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            pictureBox2.Location = new Point(756, 432);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(245, 134);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -57,7 +58,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(977, 566);
+            ClientSize = new Size(1001, 566);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
             Name = "VideoServer";

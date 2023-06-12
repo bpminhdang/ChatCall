@@ -13,6 +13,7 @@ namespace ChatApp
         private NetworkStream streamPic;
         private VideoCapture capture;
         string Type;
+        private bool True = true;
         public VideoServer(string Type)
         {
             InitializeComponent();
@@ -23,7 +24,7 @@ namespace ChatApp
         {
             if (Type == "Call")
             {
-                capture = new VideoCapture();
+                capture = new VideoCapture(0);
                 serverPic = new TcpListener(IPAddress.Any, 8082);
             }
             else
@@ -35,7 +36,7 @@ namespace ChatApp
             serverPic.Start();
             Task.Run(() =>
             {
-                while (true)
+                while (True)
                 {
                     // Chờ đợi kết nối từ client
                     clientPic = serverPic.AcceptTcpClient();
@@ -85,6 +86,7 @@ namespace ChatApp
 
             }
             pictureBox2.Image = screenShot;
+            Thread.Sleep(16);
         }
 
         private Bitmap screenshotGet()
@@ -100,11 +102,15 @@ namespace ChatApp
 
         private void CallSend()
         {
-            Mat frame = new Mat();
-            capture.Read(frame);
-            pictureBox2.Image = BitmapConverter.ToBitmap(frame);
-            Byte[] imageBytes = frame.ToBytes();
-            streamPic.Write(imageBytes, 0, imageBytes.Length);
+            while (True)
+            {
+                Mat frame = new Mat();
+                capture.Read(frame);
+                pictureBox2.Image = BitmapConverter.ToBitmap(frame);
+                Byte[] imageBytes = frame.ToBytes();
+                streamPic.Write(imageBytes, 0, imageBytes.Length);
+                Thread.Sleep(41);
+            }
         }
 
         private void VideoServer_FormClosed(object sender, FormClosedEventArgs e)
@@ -112,6 +118,7 @@ namespace ChatApp
             streamPic.Dispose();
             clientPic.Close();
             serverPic.Stop();
+            True = false; //Stop any loop in the form
         }
     }
 }
