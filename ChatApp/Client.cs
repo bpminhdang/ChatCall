@@ -89,7 +89,11 @@ namespace ChatApp
 
                                 }
                             }
-                            catch (Exception ex) { MessageBox.Show(ex.Message); }
+                            catch (Exception ex)
+                            {
+                                int temp = 0;
+                                label1.Text = temp.ToString(); continue;
+                            }
                         }
                     }
                 });
