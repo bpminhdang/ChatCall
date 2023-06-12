@@ -102,7 +102,7 @@ namespace ChatApp
                             {
                                 System.Drawing.Image image = System.Drawing.Image.FromStream(ms);
                                 ptbImage.Image = image;
-                                MessageBox.Show("Server nhan 1 anh");
+                               // MessageBox.Show("Server nhan 1 anh");
 
                             }
                         }
@@ -119,7 +119,7 @@ namespace ChatApp
             ptbYou.Image = BitmapConverter.ToBitmap(frame);
             Byte[] imageBytes = frame.ToBytes();
             streamPic.Write(imageBytes, 0, imageBytes.Length);
-            MessageBox.Show("Server gui 1 anh");
+          //  MessageBox.Show("Server gui 1 anh");
 
         }
 
@@ -150,7 +150,7 @@ namespace ChatApp
         private void Call()
         {
             ptbYou.Visible = true;
-            MessageBox.Show("Video timer cua Server bat");
+           // MessageBox.Show("Video timer cua Server bat");
             StopTimer(ScreenTimer);
             StartTimer(VideoTimer);
         }
