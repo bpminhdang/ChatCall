@@ -40,8 +40,6 @@
             VideoTimer = new System.Windows.Forms.Timer(components);
             ScreenTimer = new System.Windows.Forms.Timer(components);
             ptbYou = new PictureBox();
-            label1 = new Label();
-            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)ptbImage).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ptbYou).BeginInit();
             SuspendLayout();
@@ -122,13 +120,10 @@
             // 
             // VideoTimer
             // 
-            VideoTimer.Interval = 41;
-            VideoTimer.Tick += VideoTimer_Tick;
             // 
             // ScreenTimer
             // 
             ScreenTimer.Interval = 16;
-            ScreenTimer.Tick += ScreenTimer_Tick;
             // 
             // ptbYou
             // 
@@ -138,32 +133,13 @@
             ptbYou.SizeMode = PictureBoxSizeMode.CenterImage;
             ptbYou.TabIndex = 19;
             ptbYou.TabStop = false;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(289, 29);
-            label1.Name = "label1";
-            label1.Size = new Size(22, 25);
-            label1.TabIndex = 20;
-            label1.Text = "0";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(346, 29);
-            label2.Name = "label2";
-            label2.Size = new Size(22, 25);
-            label2.TabIndex = 23;
-            label2.Text = "0";
+            ptbYou.Visible = false;
             // 
             // Server
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1146, 554);
-            Controls.Add(label2);
-            Controls.Add(label1);
             Controls.Add(ptbYou);
             Controls.Add(btScreenShare);
             Controls.Add(btCall);
@@ -195,7 +171,5 @@
         private System.Windows.Forms.Timer VideoTimer;
         private System.Windows.Forms.Timer ScreenTimer;
         private PictureBox ptbYou;
-        private Label label1;
-        private Label label2;
     }
 }
