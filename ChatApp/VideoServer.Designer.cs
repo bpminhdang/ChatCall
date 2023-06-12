@@ -36,21 +36,24 @@
             // 
             // pictureBox1
             // 
+            pictureBox1.BackColor = Color.Transparent;
             pictureBox1.Dock = DockStyle.Fill;
+            pictureBox1.Image = Properties.Resources._0_4Gzjgh9Y7Gu8KEtZ;
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(1001, 566);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
             // pictureBox2
             // 
             pictureBox2.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            pictureBox2.BackColor = Color.Transparent;
             pictureBox2.Location = new Point(756, 432);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(245, 134);
-            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 1;
             pictureBox2.TabStop = false;
             // 
@@ -58,6 +61,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(1001, 566);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);

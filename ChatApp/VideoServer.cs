@@ -18,6 +18,7 @@ namespace ChatApp
         {
             InitializeComponent();
             this.Type = Type;
+
         }
 
         private void VideoClient_Load(object sender, EventArgs e)
@@ -32,7 +33,6 @@ namespace ChatApp
                 pictureBox2.Visible = false;
                 serverPic = new TcpListener(IPAddress.Any, 8083);
             }
-
             serverPic.Start();
             Task.Run(() =>
             {

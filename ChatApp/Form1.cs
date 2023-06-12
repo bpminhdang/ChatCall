@@ -29,7 +29,7 @@ namespace ChatApp
         private void button2_Click(object sender, EventArgs e)
         {
             //ClientOld client = new ClientOld();
-           //client.Show();
+            //client.Show();
         }
     }
 }
