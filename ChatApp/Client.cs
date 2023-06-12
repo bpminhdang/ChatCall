@@ -55,7 +55,7 @@ namespace ChatApp
                         else if (message == "//Screen share")
                             btScreenShare.Text = "Accept";
                         else
-                        rtbRecv.Text += message + "\n";
+                            rtbRecv.Text += message + "\n";
                     }
                 });
 
