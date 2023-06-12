@@ -135,7 +135,6 @@
             ptbYou.SizeMode = PictureBoxSizeMode.CenterImage;
             ptbYou.TabIndex = 18;
             ptbYou.TabStop = false;
-            ptbYou.Visible = false;
             // 
             // textBox1
             // 

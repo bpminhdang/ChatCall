@@ -41,9 +41,9 @@ namespace ChatApp
             try
             {
                 clientMess = new TcpClient();
-                clientMess.Connect(textBox1.Text, 8081);
+                clientMess.Connect(textBox1.Text, 10000);
                 clientPic = new TcpClient();
-                clientPic.Connect(textBox1.Text, 8082);
+                clientPic.Connect(textBox1.Text, 10001);
                 streamPic = clientPic.GetStream();
                 readerMess = new StreamReader(clientMess.GetStream());
                 writerMess = new StreamWriter(clientMess.GetStream());
@@ -103,10 +103,17 @@ namespace ChatApp
 
         private void bt_Send_Click(object sender, EventArgs e)
         {
-            string text = tbMessage.Text;
-            writerMess.WriteLine(text);
-            writerMess.Flush();
-            tbMessage.Clear();
+            messageSend(tbMessage.Text);
+        }
+
+        private void messageSend(string s)
+        {
+            // Gửi dữ liệu từ textbox đến client khi người dùng nhấn nút
+            if (writerMess != null)
+            {
+                writerMess.WriteLine(s);
+                writerMess.Flush();
+            }
         }
 
         private void btCall_Click(object sender, EventArgs e)

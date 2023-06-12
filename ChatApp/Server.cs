@@ -38,9 +38,9 @@ namespace ChatApp
         private void btListen_Click(object sender, EventArgs e)
         {
             // Khởi tạo server và bắt đầu lắng nghe kết nối
-            serverMess = new TcpListener(IPAddress.Any, 8081);
+            serverMess = new TcpListener(IPAddress.Any, 10000);
             serverMess.Start();
-            serverPic = new TcpListener(IPAddress.Any, 8082);
+            serverPic = new TcpListener(IPAddress.Any, 10001);
             serverPic.Start();
             // Khởi tạo task để lắng nghe kết nối và dữ liệu từ client
             Task.Run(() => ListenForClientsMess());
