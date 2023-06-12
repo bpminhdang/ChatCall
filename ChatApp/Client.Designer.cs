@@ -28,67 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            ptbImage = new PictureBox();
-            btScreenShare = new Button();
-            btCall = new Button();
-            btSend = new Button();
             tbMessage = new TextBox();
             lbStatus = new Label();
             rtbRecv = new RichTextBox();
-            btConnect = new Button();
-            VideoTimer = new System.Windows.Forms.Timer(components);
-            ScreenTimer = new System.Windows.Forms.Timer(components);
-            ptbYou = new PictureBox();
             textBox1 = new TextBox();
-            ((System.ComponentModel.ISupportInitialize)ptbImage).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)ptbYou).BeginInit();
+            btScreenShare = new Addon_Custom_Button();
+            btCall = new Addon_Custom_Button();
+            btConnect = new Addon_Custom_Button();
+            btSend = new Addon_Custom_Button();
             SuspendLayout();
-            // 
-            // ptbImage
-            // 
-            ptbImage.Location = new Point(253, 73);
-            ptbImage.Name = "ptbImage";
-            ptbImage.Size = new Size(482, 393);
-            ptbImage.SizeMode = PictureBoxSizeMode.CenterImage;
-            ptbImage.TabIndex = 17;
-            ptbImage.TabStop = false;
-            // 
-            // btScreenShare
-            // 
-            btScreenShare.Location = new Point(521, 19);
-            btScreenShare.Name = "btScreenShare";
-            btScreenShare.Size = new Size(146, 34);
-            btScreenShare.TabIndex = 16;
-            btScreenShare.Text = "Screen share";
-            btScreenShare.UseVisualStyleBackColor = true;
-            btScreenShare.Click += btScreenShare_Click;
-            // 
-            // btCall
-            // 
-            btCall.Location = new Point(673, 19);
-            btCall.Name = "btCall";
-            btCall.Size = new Size(112, 34);
-            btCall.TabIndex = 15;
-            btCall.Text = "Call";
-            btCall.UseVisualStyleBackColor = true;
-            btCall.Click += btCall_Click;
-            // 
-            // btSend
-            // 
-            btSend.Location = new Point(807, 474);
-            btSend.Name = "btSend";
-            btSend.Size = new Size(112, 34);
-            btSend.TabIndex = 14;
-            btSend.Text = "Send";
-            btSend.UseVisualStyleBackColor = true;
-            btSend.Click += bt_Send_Click;
             // 
             // tbMessage
             // 
             tbMessage.Location = new Point(14, 476);
             tbMessage.Name = "tbMessage";
-            tbMessage.Size = new Size(787, 31);
+            tbMessage.Size = new Size(697, 31);
             tbMessage.TabIndex = 13;
             // 
             // lbStatus
@@ -105,81 +59,126 @@
             rtbRecv.BorderStyle = BorderStyle.None;
             rtbRecv.Location = new Point(14, 95);
             rtbRecv.Name = "rtbRecv";
-            rtbRecv.Size = new Size(210, 371);
+            rtbRecv.Size = new Size(517, 371);
             rtbRecv.TabIndex = 10;
             rtbRecv.Text = "";
             // 
-            // btConnect
-            // 
-            btConnect.Location = new Point(791, 19);
-            btConnect.Name = "btConnect";
-            btConnect.Size = new Size(112, 34);
-            btConnect.TabIndex = 9;
-            btConnect.Text = "Connect";
-            btConnect.UseVisualStyleBackColor = true;
-            btConnect.Click += btConnect_Click;
-            // 
-            // VideoTimer
-            // 
-            // 
-            // ScreenTimer
-            // 
-            // 
-            // ptbYou
-            // 
-            ptbYou.Location = new Point(741, 343);
-            ptbYou.Name = "ptbYou";
-            ptbYou.Size = new Size(178, 123);
-            ptbYou.SizeMode = PictureBoxSizeMode.CenterImage;
-            ptbYou.TabIndex = 18;
-            ptbYou.TabStop = false;
-            ptbYou.Visible = false;
-            // 
             // textBox1
             // 
-            textBox1.Location = new Point(753, 73);
+            textBox1.Location = new Point(753, 106);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(150, 31);
             textBox1.TabIndex = 19;
-            textBox1.Text = "10.0.138.40";
+            textBox1.Text = "127.0.0.1";
+            // 
+            // btScreenShare
+            // 
+            btScreenShare.BackColor = Color.White;
+            btScreenShare.BackgroundColor = Color.White;
+            btScreenShare.BorderColor = Color.FromArgb(142, 126, 122);
+            btScreenShare.BorderRadius = 30;
+            btScreenShare.BorderSize = 1;
+            btScreenShare.FlatAppearance.BorderSize = 0;
+            btScreenShare.FlatStyle = FlatStyle.Flat;
+            btScreenShare.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            btScreenShare.ForeColor = Color.FromArgb(73, 103, 39);
+            btScreenShare.Location = new Point(426, 19);
+            btScreenShare.Name = "btScreenShare";
+            btScreenShare.Size = new Size(153, 60);
+            btScreenShare.TabIndex = 22;
+            btScreenShare.Text = "Screen share";
+            btScreenShare.TextColor = Color.FromArgb(73, 103, 39);
+            btScreenShare.UseVisualStyleBackColor = false;
+            btScreenShare.Click += btScreenShare_Click;
+            // 
+            // btCall
+            // 
+            btCall.BackColor = Color.White;
+            btCall.BackgroundColor = Color.White;
+            btCall.BorderColor = Color.FromArgb(142, 126, 122);
+            btCall.BorderRadius = 30;
+            btCall.BorderSize = 1;
+            btCall.FlatAppearance.BorderSize = 0;
+            btCall.FlatStyle = FlatStyle.Flat;
+            btCall.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            btCall.ForeColor = Color.FromArgb(73, 103, 39);
+            btCall.Location = new Point(585, 19);
+            btCall.Name = "btCall";
+            btCall.Size = new Size(153, 60);
+            btCall.TabIndex = 21;
+            btCall.Text = "Call";
+            btCall.TextColor = Color.FromArgb(73, 103, 39);
+            btCall.UseVisualStyleBackColor = false;
+            btCall.Click += btCall_Click;
+            // 
+            // btConnect
+            // 
+            btConnect.BackColor = Color.FromArgb(73, 103, 39);
+            btConnect.BackgroundColor = Color.FromArgb(73, 103, 39);
+            btConnect.BorderColor = Color.PaleVioletRed;
+            btConnect.BorderRadius = 30;
+            btConnect.BorderSize = 0;
+            btConnect.FlatAppearance.BorderSize = 0;
+            btConnect.FlatStyle = FlatStyle.Flat;
+            btConnect.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            btConnect.ForeColor = Color.FromArgb(252, 249, 248);
+            btConnect.Location = new Point(744, 19);
+            btConnect.Name = "btConnect";
+            btConnect.Size = new Size(159, 60);
+            btConnect.TabIndex = 20;
+            btConnect.Text = "Connect";
+            btConnect.TextColor = Color.FromArgb(252, 249, 248);
+            btConnect.UseVisualStyleBackColor = false;
+            btConnect.Click += btConnect_Click;
+            // 
+            // btSend
+            // 
+            btSend.BackColor = Color.FromArgb(73, 103, 39);
+            btSend.BackgroundColor = Color.FromArgb(73, 103, 39);
+            btSend.BorderColor = Color.PaleVioletRed;
+            btSend.BorderRadius = 30;
+            btSend.BorderSize = 0;
+            btSend.FlatAppearance.BorderSize = 0;
+            btSend.FlatStyle = FlatStyle.Flat;
+            btSend.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            btSend.ForeColor = Color.FromArgb(252, 249, 248);
+            btSend.Location = new Point(753, 454);
+            btSend.Name = "btSend";
+            btSend.Size = new Size(159, 60);
+            btSend.TabIndex = 23;
+            btSend.Text = "Send";
+            btSend.TextColor = Color.FromArgb(252, 249, 248);
+            btSend.UseVisualStyleBackColor = false;
+            btSend.Click += bt_Send_Click;
             // 
             // Client
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(254, 252, 246);
             ClientSize = new Size(937, 526);
-            Controls.Add(textBox1);
-            Controls.Add(ptbYou);
+            Controls.Add(btSend);
             Controls.Add(btScreenShare);
             Controls.Add(btCall);
-            Controls.Add(btSend);
+            Controls.Add(btConnect);
+            Controls.Add(textBox1);
             Controls.Add(tbMessage);
             Controls.Add(lbStatus);
             Controls.Add(rtbRecv);
-            Controls.Add(btConnect);
-            Controls.Add(ptbImage);
             Name = "Client";
             Text = "Client";
-            Load += Client_Load;
-            ((System.ComponentModel.ISupportInitialize)ptbImage).EndInit();
-            ((System.ComponentModel.ISupportInitialize)ptbYou).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private PictureBox ptbImage;
-        private Button btScreenShare;
-        private Button btCall;
-        private Button btSend;
         private TextBox tbMessage;
         private Label lbStatus;
         private RichTextBox rtbRecv;
-        private Button btConnect;
-        private System.Windows.Forms.Timer VideoTimer;
-        private System.Windows.Forms.Timer ScreenTimer;
-        private PictureBox ptbYou;
         private TextBox textBox1;
+        private Addon_Custom_Button btScreenShare;
+        private Addon_Custom_Button btCall;
+        private Addon_Custom_Button btConnect;
+        private Addon_Custom_Button btSend;
     }
 }

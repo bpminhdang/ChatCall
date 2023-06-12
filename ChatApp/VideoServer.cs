@@ -1,17 +1,8 @@
 ﻿using OpenCvSharp;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using OpenCvSharp.Extensions;
 using System.Drawing.Imaging;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace ChatApp
 {
@@ -20,15 +11,27 @@ namespace ChatApp
         private TcpListener serverPic;
         private TcpClient clientPic;
         private NetworkStream streamPic;
-
-        public VideoServer()
+        private VideoCapture capture;
+        string Type;
+        public VideoServer(string Type)
         {
             InitializeComponent();
+            this.Type = Type;
         }
 
         private void VideoClient_Load(object sender, EventArgs e)
         {
-            serverPic = new TcpListener(IPAddress.Any, 8082);
+            if (Type == "Call")
+            {
+                capture = new VideoCapture();
+                serverPic = new TcpListener(IPAddress.Any, 8082);
+            }
+            else
+            {
+                pictureBox2.Visible = false;
+                serverPic = new TcpListener(IPAddress.Any, 8083);
+            }
+
             serverPic.Start();
             Task.Run(() =>
             {
@@ -42,7 +45,10 @@ namespace ChatApp
                     {
                         Task.Run(() =>
                         {
-                            ScreenshotSend();
+                            if (Type == "Call")
+                                CallSend();//ScreenshotSend(); //CallSend() neu test 2 may
+                            else
+                                ScreenshotSend();
 
                         });
                         if (streamPic != null)
@@ -90,6 +96,15 @@ namespace ChatApp
                 g.CopyFromScreen(System.Drawing.Point.Empty, System.Drawing.Point.Empty, bounds.Size);
             }
             return screenShot;
+        }
+
+        private void CallSend()
+        {
+            Mat frame = new Mat();
+            capture.Read(frame);
+            pictureBox2.Image = BitmapConverter.ToBitmap(frame);
+            Byte[] imageBytes = frame.ToBytes();
+            streamPic.Write(imageBytes, 0, imageBytes.Length);
         }
 
         private void VideoServer_FormClosed(object sender, FormClosedEventArgs e)

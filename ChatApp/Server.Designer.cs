@@ -28,38 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            btListen = new Button();
             rtbRecv = new RichTextBox();
             lbStatus = new Label();
             tbMessage = new TextBox();
-            btSend = new Button();
-            btCall = new Button();
-            btScreenShare = new Button();
-            ptbImage = new PictureBox();
-            VideoTimer = new System.Windows.Forms.Timer(components);
-            ScreenTimer = new System.Windows.Forms.Timer(components);
-            ptbYou = new PictureBox();
-            ((System.ComponentModel.ISupportInitialize)ptbImage).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)ptbYou).BeginInit();
+            btListen = new Addon_Custom_Button();
+            btCall = new Addon_Custom_Button();
+            btScreenShare = new Addon_Custom_Button();
+            btSend = new Addon_Custom_Button();
             SuspendLayout();
-            // 
-            // btListen
-            // 
-            btListen.Location = new Point(805, 41);
-            btListen.Name = "btListen";
-            btListen.Size = new Size(112, 34);
-            btListen.TabIndex = 0;
-            btListen.Text = "Listen";
-            btListen.UseVisualStyleBackColor = true;
-            btListen.Click += btListen_Click;
             // 
             // rtbRecv
             // 
             rtbRecv.BorderStyle = BorderStyle.None;
             rtbRecv.Location = new Point(28, 89);
             rtbRecv.Name = "rtbRecv";
-            rtbRecv.Size = new Size(248, 399);
+            rtbRecv.Size = new Size(426, 399);
             rtbRecv.TabIndex = 1;
             rtbRecv.Text = "";
             // 
@@ -79,97 +62,113 @@
             tbMessage.Size = new Size(787, 31);
             tbMessage.TabIndex = 4;
             // 
-            // btSend
+            // btListen
             // 
-            btSend.Location = new Point(821, 496);
-            btSend.Name = "btSend";
-            btSend.Size = new Size(112, 34);
-            btSend.TabIndex = 5;
-            btSend.Text = "Send";
-            btSend.UseVisualStyleBackColor = true;
-            btSend.Click += btSend_Click;
+            btListen.BackColor = Color.FromArgb(160, 63, 40);
+            btListen.BackgroundColor = Color.FromArgb(160, 63, 40);
+            btListen.BorderColor = Color.PaleVioletRed;
+            btListen.BorderRadius = 30;
+            btListen.BorderSize = 0;
+            btListen.FlatAppearance.BorderSize = 0;
+            btListen.FlatStyle = FlatStyle.Flat;
+            btListen.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            btListen.ForeColor = Color.FromArgb(252, 249, 248);
+            btListen.Location = new Point(939, 28);
+            btListen.Name = "btListen";
+            btListen.Size = new Size(159, 60);
+            btListen.TabIndex = 8;
+            btListen.Text = "Listen";
+            btListen.TextColor = Color.FromArgb(252, 249, 248);
+            btListen.UseVisualStyleBackColor = false;
+            btListen.Click += btListen_Click;
             // 
             // btCall
             // 
-            btCall.Location = new Point(687, 41);
+            btCall.BackColor = Color.White;
+            btCall.BackgroundColor = Color.White;
+            btCall.BorderColor = Color.FromArgb(142, 126, 122);
+            btCall.BorderRadius = 30;
+            btCall.BorderSize = 1;
+            btCall.FlatAppearance.BorderSize = 0;
+            btCall.FlatStyle = FlatStyle.Flat;
+            btCall.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            btCall.ForeColor = Color.FromArgb(166, 76, 54);
+            btCall.Location = new Point(780, 28);
             btCall.Name = "btCall";
-            btCall.Size = new Size(112, 34);
-            btCall.TabIndex = 6;
+            btCall.Size = new Size(153, 60);
+            btCall.TabIndex = 9;
             btCall.Text = "Call";
-            btCall.UseVisualStyleBackColor = true;
+            btCall.TextColor = Color.FromArgb(166, 76, 54);
+            btCall.UseVisualStyleBackColor = false;
             btCall.Click += btCall_Click;
             // 
             // btScreenShare
             // 
-            btScreenShare.Location = new Point(535, 41);
+            btScreenShare.BackColor = Color.White;
+            btScreenShare.BackgroundColor = Color.White;
+            btScreenShare.BorderColor = Color.FromArgb(142, 126, 122);
+            btScreenShare.BorderRadius = 30;
+            btScreenShare.BorderSize = 1;
+            btScreenShare.FlatAppearance.BorderSize = 0;
+            btScreenShare.FlatStyle = FlatStyle.Flat;
+            btScreenShare.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            btScreenShare.ForeColor = Color.FromArgb(166, 76, 54);
+            btScreenShare.Location = new Point(621, 28);
             btScreenShare.Name = "btScreenShare";
-            btScreenShare.Size = new Size(146, 34);
-            btScreenShare.TabIndex = 7;
+            btScreenShare.Size = new Size(153, 60);
+            btScreenShare.TabIndex = 10;
             btScreenShare.Text = "Screen share";
-            btScreenShare.UseVisualStyleBackColor = true;
+            btScreenShare.TextColor = Color.FromArgb(166, 76, 54);
+            btScreenShare.UseVisualStyleBackColor = false;
             btScreenShare.Click += btScreenShare_Click;
             // 
-            // ptbImage
+            // btSend
             // 
-            ptbImage.Location = new Point(282, 89);
-            ptbImage.Name = "ptbImage";
-            ptbImage.Size = new Size(651, 399);
-            ptbImage.SizeMode = PictureBoxSizeMode.CenterImage;
-            ptbImage.TabIndex = 8;
-            ptbImage.TabStop = false;
-            // 
-            // VideoTimer
-            // 
-            // 
-            // ScreenTimer
-            // 
-            ScreenTimer.Interval = 16;
-            // 
-            // ptbYou
-            // 
-            ptbYou.Location = new Point(956, 365);
-            ptbYou.Name = "ptbYou";
-            ptbYou.Size = new Size(178, 123);
-            ptbYou.SizeMode = PictureBoxSizeMode.CenterImage;
-            ptbYou.TabIndex = 19;
-            ptbYou.TabStop = false;
-            ptbYou.Visible = false;
+            btSend.BackColor = Color.FromArgb(160, 63, 40);
+            btSend.BackgroundColor = Color.FromArgb(160, 63, 40);
+            btSend.BorderColor = Color.PaleVioletRed;
+            btSend.BorderRadius = 30;
+            btSend.BorderSize = 0;
+            btSend.FlatAppearance.BorderSize = 0;
+            btSend.FlatStyle = FlatStyle.Flat;
+            btSend.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            btSend.ForeColor = Color.FromArgb(252, 249, 248);
+            btSend.Location = new Point(939, 469);
+            btSend.Name = "btSend";
+            btSend.Size = new Size(159, 60);
+            btSend.TabIndex = 24;
+            btSend.Text = "Send";
+            btSend.TextColor = Color.FromArgb(252, 249, 248);
+            btSend.UseVisualStyleBackColor = false;
+            btSend.Click += btSend_Click;
             // 
             // Server
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(255, 251, 255);
             ClientSize = new Size(1146, 554);
-            Controls.Add(ptbYou);
+            Controls.Add(btSend);
             Controls.Add(btScreenShare);
             Controls.Add(btCall);
-            Controls.Add(btSend);
+            Controls.Add(btListen);
             Controls.Add(tbMessage);
             Controls.Add(lbStatus);
             Controls.Add(rtbRecv);
-            Controls.Add(btListen);
-            Controls.Add(ptbImage);
             Name = "Server";
             Text = "Server";
-            Load += Server_Load;
-            ((System.ComponentModel.ISupportInitialize)ptbImage).EndInit();
-            ((System.ComponentModel.ISupportInitialize)ptbYou).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Button btListen;
         private RichTextBox rtbRecv;
         private Label lbStatus;
         private TextBox tbMessage;
-        private Button btSend;
-        private Button btCall;
-        private Button btScreenShare;
-        private PictureBox ptbImage;
-        private System.Windows.Forms.Timer VideoTimer;
-        private System.Windows.Forms.Timer ScreenTimer;
-        private PictureBox ptbYou;
+        private Addon_Custom_Button btListen;
+        private Addon_Custom_Button btCall;
+        private Addon_Custom_Button btScreenShare;
+        private Addon_Custom_Button btSend;
     }
 }

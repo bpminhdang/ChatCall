@@ -46,21 +46,21 @@
             // 
             // pictureBox2
             // 
-            pictureBox2.Location = new Point(983, 432);
+            pictureBox2.Location = new Point(732, 432);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(245, 134);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 1;
             pictureBox2.TabStop = false;
             // 
-            // VideoClient
+            // VideoServer
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1228, 566);
+            ClientSize = new Size(977, 566);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
-            Name = "VideoClient";
+            Name = "VideoServer";
             Text = "VideoClient";
             Load += VideoClient_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
