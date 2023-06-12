@@ -73,7 +73,7 @@ namespace ChatApp
                         //}
                         Call();
                     }
-
+                    //else
                     rtbRecv.Text += message + "\n";
 
                 }
@@ -141,7 +141,7 @@ namespace ChatApp
         private void btCall_Click(object sender, EventArgs e)
         {
             Call();
-
+            messageSend("//Call");
         }
 
         private void Call()
@@ -149,7 +149,6 @@ namespace ChatApp
             ptbYou.Visible = true;
             ScreenTimer.Stop();
             VideoTimer.Start();
-            messageSend("//Call");
         }
 
         private void btScreenShare_Click(object sender, EventArgs e)
