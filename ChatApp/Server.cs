@@ -102,6 +102,8 @@ namespace ChatApp
                             {
                                 System.Drawing.Image image = System.Drawing.Image.FromStream(ms);
                                 ptbImage.Image = image;
+                                MessageBox.Show("Server nhan 1 anh");
+
                             }
                         }
                         catch { }
@@ -117,6 +119,7 @@ namespace ChatApp
             ptbYou.Image = BitmapConverter.ToBitmap(frame);
             Byte[] imageBytes = frame.ToBytes();
             streamPic.Write(imageBytes, 0, imageBytes.Length);
+            MessageBox.Show("Server gui 1 anh");
 
         }
 

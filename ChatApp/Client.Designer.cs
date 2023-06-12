@@ -121,6 +121,7 @@
             // 
             // VideoTimer
             // 
+            VideoTimer.Interval = 1000;
             VideoTimer.Tick += VideoTimer_Tick;
             // 
             // ScreenTimer
