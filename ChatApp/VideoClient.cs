@@ -1,4 +1,5 @@
 ﻿using OpenCvSharp;
+using OpenCvSharp.Extensions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,18 +21,29 @@ namespace ChatApp
         TcpClient clientPic;
         NetworkStream streamPic;
         string ipAddress;
+        private VideoCapture capture;
+        string Type;
 
-        public VideoClient(string ipAddress)
+        public VideoClient(string ipAddress, string Type)
         {
             InitializeComponent();
             this.ipAddress = ipAddress;
-
+            this.Type = Type;
         }
 
         private void VideoClient_Load(object sender, EventArgs e)
         {
             clientPic = new TcpClient();
-            clientPic.Connect(ipAddress, 8082);
+            if (Type == "Call")
+            {
+                capture = new VideoCapture();
+                clientPic.Connect(ipAddress, 8082);
+            }
+            else
+            {
+                clientPic.Connect(ipAddress, 8083);
+                pictureBox2.Visible = false;
+            }
             streamPic = clientPic.GetStream();
             Task.Run(() =>
             {
@@ -39,7 +51,11 @@ namespace ChatApp
                 {
                     Task.Run(() =>
                     {
+                        if (Type == "Call")
+                            ScreenshotSend(); //CallSend() neu test 2 may
+                        else
                             ScreenshotSend();
+
                     });
                     if (streamPic != null)
                     {
@@ -58,7 +74,7 @@ namespace ChatApp
                     }
                 }
             });
-          
+
 
         }
 
@@ -89,9 +105,19 @@ namespace ChatApp
             return screenShot;
         }
 
+        private void CallSend()
+        {
+            Mat frame = new Mat();
+            capture.Read(frame);
+            pictureBox2.Image = BitmapConverter.ToBitmap(frame);
+            Byte[] imageBytes = frame.ToBytes();
+            streamPic.Write(imageBytes, 0, imageBytes.Length);
+        }
+
+
         private void VideoClient_FormClosed(object sender, FormClosedEventArgs e)
         {
-            streamPic.Dispose(); 
+            streamPic.Dispose();
             clientPic.Close();
         }
     }
