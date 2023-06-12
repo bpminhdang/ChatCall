@@ -92,8 +92,8 @@ namespace ChatApp
                 {
                     if (streamPic != null)
                     {
-                        //VideoTimer.Stop();
-                        ScreenTimer.Stop();
+                        //StopTimer(VideoTimer);
+                        StopTimer(ScreenTimer);
                         byte[] imageBytes = new byte[10000000];
                         streamPic.Read(imageBytes, 0, imageBytes.Length);
                         try
@@ -151,15 +151,15 @@ namespace ChatApp
         {
             ptbYou.Visible = true;
             MessageBox.Show("Video timer cua Server bat");
-            ScreenTimer.Stop();
-            VideoTimer.Start();
+            StopTimer(ScreenTimer);
+            StartTimer(VideoTimer);
         }
 
         private void btScreenShare_Click(object sender, EventArgs e)
         {
             ptbYou.Visible = false;
-            VideoTimer.Stop();
-            ScreenTimer.Start();
+            StopTimer(VideoTimer);
+            StartTimer(ScreenTimer);
         }
 
 
