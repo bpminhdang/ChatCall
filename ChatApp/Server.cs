@@ -18,10 +18,16 @@ namespace ChatApp
 {
     public partial class Server : Form
     {
-        VideoCapture capture = new VideoCapture(0);
-        TcpListener tcpListener;
-        IPEndPoint ipepServer;
-        NetworkStream netStream;
+        private TcpListener serverMess;
+        private TcpClient clientMess;
+        private NetworkStream streamMess;
+        private StreamReader readerMess;
+        private StreamWriter writerMess;
+        VideoCapture capture;
+
+        private TcpListener serverPic;
+        private TcpClient clientPic;
+        private NetworkStream streamPic;
         public Server()
         {
             CheckForIllegalCrossThreadCalls = false;
@@ -31,87 +37,69 @@ namespace ChatApp
 
         private void btListen_Click(object sender, EventArgs e)
         {
-            ipepServer = new IPEndPoint(IPAddress.Any, 9000);
-            tcpListener = new TcpListener(ipepServer);
-            tcpListener.Start();
-
-            Task.Run(() =>
-            {
-                AcceptConnection();
-            });
+            // Khởi tạo server và bắt đầu lắng nghe kết nối
+            serverMess = new TcpListener(IPAddress.Any, 8081);
+            serverMess.Start();
+            serverPic = new TcpListener(IPAddress.Any, 8082);
+            serverPic.Start();
+            // Khởi tạo task để lắng nghe kết nối và dữ liệu từ client
+            Task.Run(() => ListenForClientsMess());
+            Task.Run(() => ListenForClientsPic());
         }
 
-        private void AcceptConnection()
+        private void ListenForClientsMess()
         {
             while (true)
             {
-                try
+                // Chờ đợi kết nối từ client
+                clientMess = serverMess.AcceptTcpClient();
+                lbStatus.Text = "Connected!";
+                // Lấy stream để đọc và ghi dữ liệu
+                streamMess = clientMess.GetStream();
+                readerMess = new StreamReader(streamMess);
+                writerMess = new StreamWriter(streamMess);
+
+                // Đọc dữ liệu từ client
+                string message = "";
+                while (message != null)
                 {
-                    TcpClient tcpClient = tcpListener.AcceptTcpClient();
-                    IPEndPoint clientEndPoint = (IPEndPoint)tcpClient.Client.RemoteEndPoint;
-                    netStream = tcpClient.GetStream();
-                    string clientIPAddress = clientEndPoint.ToString();
-                    lbStatus.Text = " Connected!";
-                    ReceiveMessage(tcpClient.Client);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
+                    message = readerMess.ReadLine();
+                    if (message != null)
+                    {
+                        rtbRecv.Text += message + "\n";
+                    }
                 }
             }
         }
 
-        //private void ReceiveVideo(TcpClient tcpClient)
-        //{
-        //    Task.Run(() =>
-        //    {
-        //        byte[] recv = new byte[1024];
-        //        while (tcpClient.Connected)
-        //        {
-        //            NetworkStream stream = tcpClient.GetStream();
-        //            byte[] imageBytes = new byte[tcpClient.ReceiveBufferSize];
-        //            int bytesRead = stream.Read(imageBytes, 0, imageBytes.Length);
-        //            using (MemoryStream memoryStream = new MemoryStream(imageBytes, 0, bytesRead))
-        //            {
-        //                Image image = Image.FromStream(memoryStream, true);
-        //                ptbImage.Image = image;
-        //            }
-
-        //        }
-        //    });
-        //}
-
-        private void ReceiveMessage(Socket tcpClient_Client)
+        private void ListenForClientsPic()
         {
-            Task.Run(() =>
+            while (true)
             {
-                byte[] recv = new byte[1];
-                while (tcpClient_Client.Connected)
+                // Chờ đợi kết nối từ client
+                clientPic = serverPic.AcceptTcpClient();
+                // Lấy stream để đọc và ghi dữ liệu
+                streamPic = clientPic.GetStream();
+                while (clientPic.Connected)
                 {
-                    string Chr = "";
-                    string temp = "";
-                    while (Chr != "\n")
+
+                    if (streamPic != null)
                     {
-
-                        tcpClient_Client.Receive(recv);
-                        Chr = Encoding.UTF8.GetString(recv);
-                        temp += Chr;
+                        //VideoTimer.Stop();
+                        ScreenTimer.Stop();
+                        byte[] imageBytes = new byte[10000000];
+                        streamPic.Read(imageBytes, 0, imageBytes.Length);
+                        try
+                        {
+                            using (MemoryStream ms = new MemoryStream(imageBytes))
+                            {
+                                System.Drawing.Image image = System.Drawing.Image.FromStream(ms);
+                                ptbImage.Image = image;
+                            }
+                        }
+                        catch { }
                     }
-                    rtbRecv.Text += temp;
-                    rtbSend.Text += "\n";
                 }
-            });
-        }
-
-        public void messageSend(string message)
-        {
-            if (netStream != null)
-            {
-                byte[] data = Encoding.UTF8.GetBytes(message + "\n");
-                netStream.Write(data, 0, data.Length);
-                rtbSend.Text += tbMessage.Text + "\n";
-                rtbRecv.Text += "\n";
-
             }
         }
 
@@ -119,42 +107,15 @@ namespace ChatApp
         {
             Mat frame = new Mat();
             capture.Read(frame);
-            ptbImage.Image = BitmapConverter.ToBitmap(frame);
-            VideoSend(ptbImage.Image);
-        }
+            ptbYou.Image = BitmapConverter.ToBitmap(frame);
+            Byte[] imageBytes = frame.ToBytes();
+            streamPic.Write(imageBytes, 0, imageBytes.Length);
 
-        private void VideoSend(Image image)
-        {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                image.Save(ms, ImageFormat.Jpeg); // lưu đối tượng Image vào MemoryStream với định dạng JPEG
-                byte[] imageBytes = ms.ToArray(); // chuyển đổi MemoryStream thành một mảng byte
-                netStream.Write(imageBytes, 0, imageBytes.Length);// chuyển đổi MemoryStream thành một mảng byte
-            }
-
-        }
-
-        private void btCall_Click(object sender, EventArgs e)
-        {
-            messageSend("//Call");
-            ptbImage.BringToFront();
-            Thread.Sleep(1000);
-            ScreenTimer.Stop();
-            VideoTimer.Start();
-
-        }
-
-        private void btScreenShare_Click(object sender, EventArgs e)
-        {
-            messageSend("//Screen");
-            ptbImage.BringToFront();
-            Thread.Sleep(1000);
-            VideoTimer.Stop();
-            ScreenTimer.Start();
         }
 
         private void ScreenTimer_Tick(object sender, EventArgs e)
         {
+
             // Chụp ảnh màn hình hiện tại
             Bitmap screenShot = screenshotGet();
             // Chuyển đổi ảnh sang mảng byte để truyền qua socket
@@ -163,10 +124,30 @@ namespace ChatApp
             {
                 screenShot.Save(ms, ImageFormat.Jpeg);
                 imageBytes = ms.ToArray();
+                streamPic.Write(imageBytes, 0, imageBytes.Length);
+
             }
-            ptbImage.Image = screenShot;
-            VideoSend(ptbImage.Image);
+            ptbYou.Image = screenShot;
         }
+
+
+        private void btCall_Click(object sender, EventArgs e)
+        {
+            ptbYou.Visible = true;
+            ScreenTimer.Stop();
+            VideoTimer.Start();
+            messageSend("//Call");
+
+        }
+
+        private void btScreenShare_Click(object sender, EventArgs e)
+        {
+            ptbYou.Visible = false;
+            VideoTimer.Stop();
+            ScreenTimer.Start();
+        }
+
+
 
         private Bitmap screenshotGet()
         {
@@ -182,6 +163,21 @@ namespace ChatApp
         private void btSend_Click(object sender, EventArgs e)
         {
             messageSend(tbMessage.Text);
+        }
+
+        private void messageSend(string s)
+        {
+            // Gửi dữ liệu từ textbox đến client khi người dùng nhấn nút
+            if (writerMess != null)
+            {
+                writerMess.WriteLine(s);
+                writerMess.Flush();
+            }
+        }
+
+        private void Server_Load(object sender, EventArgs e)
+        {
+            capture = new VideoCapture(0);
         }
     }
 }

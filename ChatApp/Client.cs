@@ -16,20 +16,22 @@ using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using System.Text.RegularExpressions;
 using System.Drawing.Imaging;
+using Gst.Rtsp;
 
 namespace ChatApp
 {
     public partial class Client : Form
     {
-        VideoCapture capture = new VideoCapture(0);
-        TcpClient tcpClient = new TcpClient();
-        NetworkStream netStream;
-        MemoryStream ms;
+        VideoCapture capture;
+        TcpClient clientMess;
+        TcpClient clientPic;
+        StreamReader readerMess;
+        StreamWriter writerMess;
+        NetworkStream streamPic;
         public Client()
         {
             CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
-            //bt_Disconnect.Enabled = false;
         }
 
 
@@ -38,134 +40,127 @@ namespace ChatApp
         {
             try
             {
-                IPEndPoint ipEndPoint = new IPEndPoint(System.Net.IPAddress.Parse("127.0.0.1"), 9000);
-                tcpClient.Connect(ipEndPoint);
-                netStream = tcpClient.GetStream();
-                ReceiveMessage(tcpClient.Client);
-            }
-            catch
-            {
-                return;
-            }
-        }
+                clientMess = new TcpClient();
+                clientMess.Connect(textBox1.Text, 8081);
+                clientPic = new TcpClient();
+                clientPic.Connect(textBox1.Text, 8082);
+                streamPic = clientPic.GetStream();
+                readerMess = new StreamReader(clientMess.GetStream());
+                writerMess = new StreamWriter(clientMess.GetStream());
+                lbStatus.Text = "Connected!";
 
-      
-
-        public void ReceiveMessage(Socket tcpClient_Client)
-        {
-            Task.Run(() =>
-            {
-                byte[] recv = new byte[1];
-                bool isRunning = true;
-
-                string receiveType = "Message";  //Khi nhận được command sẽ đổi biến receive type và không nhận message nữa
-                while (tcpClient_Client.Connected)
+                Task.Run(() =>
                 {
-                    if (receiveType == "Message")
+                    while (true)
                     {
-                        string Chr = "";
-                        string temp = "";
-                        while (Chr != "\n")
+                        string data = readerMess.ReadLine();
+                        if (data == "//Call")
                         {
-
-                            tcpClient_Client.Receive(recv);
-                            Chr = Encoding.UTF8.GetString(recv);
-                            temp += Chr;
+                            DialogResult dg = MessageBox.Show("Call", "Call request", MessageBoxButtons.YesNo);
+                            if (dg == DialogResult.Yes)
+                            {
+                                ScreenTimer.Stop();
+                                VideoTimer.Start();
+                                ptbYou.Visible = true;
+                            }
                         }
-                        if (temp.StartsWith("//Call")) 
-                        {
-                            receiveType = "Call";
-                            btCall.Text = "Stop";
-                            continue;
-                        }
-                        else if (temp.StartsWith("//Screen"))
-                        {
-                            receiveType = "Screen";
-                            btScreenShare.Text = "Stop";
-                            continue;
-                        }
-                        rtbRecv.Text += temp;
-                        rtbSend.Text += "\n";
+                        rtbRecv.Text += data + "\n";
                     }
-                    else if (receiveType == "Call")
-                    {
-                        ptbImage.BringToFront();
-                        ReceiveVideo(tcpClient_Client);
-                        //Khi dừng nhận video sẽ đổi biến ReceiveType và tiếp tục nhân message
-                        ptbImage.SendToBack();
-                        receiveType = "Message";
-                    }
-                    else if (receiveType == "Screen")
-                    {
-                        ptbImage.BringToFront();
-                        ReceiveVideo(tcpClient_Client);
-                        //Khi dừng nhận video sẽ đổi biến ReceiveType và tiếp tục nhân message
-                        ptbImage.SendToBack();
-                        receiveType = "Message";
-                    }
-                }
-
-            });
-        }
-
-        /// <summary>
-        /// Dùng khi nhận được message call hoặc share màn hình, dừng khi nhấn nút stop
-        /// </summary>
-        /// <param name="client"></param>
-        private void ReceiveVideo(Socket client)
-        {
-            while (client.Connected && (btCall.Text == "Stop" || btScreenShare.Text == "Stop"))
-            {
-                if (netStream != null)
+                });
+                Task.Run(() =>
                 {
-                    byte[] imageBytes = new byte[100000];
-                    netStream.Read(imageBytes, 0, imageBytes.Length);
-                    try
+                    while (clientPic.Connected)
                     {
-                        ms = new MemoryStream(imageBytes);
-                        Image image = Image.FromStream(ms);
-                        ptbImage.Image = image;
+                        if (streamPic != null)
+                        {
+                            ScreenTimer.Stop();
+                            //VideoTimer.Stop();
+                            byte[] imageBytes = new byte[10000000];
+                            streamPic.Read(imageBytes, 0, imageBytes.Length);
+                            try
+                            {
+                                using (MemoryStream ms = new MemoryStream(imageBytes))
+                                {
+                                    Image image = Image.FromStream(ms);
+                                    ptbImage.Image = image;
+                                }
+                            }
+                            catch (Exception ex) { continue; }
+                        }
                     }
-                    catch {  }
-                }
+                });
+
             }
-
-        }
-
-
-        public void messageSend(string dataS)
-        {
-            if (netStream != null)
+            catch (Exception ex)
             {
-                byte[] data = System.Text.Encoding.UTF8.GetBytes(dataS + "\n");
-                netStream.Write(data, 0, data.Length);
-                rtbSend.Text += tbMessage.Text + "\n";
+                MessageBox.Show(ex.Message);
             }
         }
+
+
+
+
 
         private void bt_Send_Click(object sender, EventArgs e)
         {
-            messageSend(tbMessage.Text);
+            string text = tbMessage.Text;
+            writerMess.WriteLine(text);
+            writerMess.Flush();
             tbMessage.Clear();
         }
 
         private void btCall_Click(object sender, EventArgs e)
         {
-            if (btCall.Text == "Stop")
-            {
-                messageSend("//Stop"); //Cần xử lý hàm nhận bên server để dừng share
-                btCall.Text = "Call";
-            }
+            ScreenTimer.Stop();
+            VideoTimer.Start();
         }
 
         private void btScreenShare_Click(object sender, EventArgs e)
         {
-            if (btScreenShare.Text == "Stop")
-            {
-                messageSend("//Stop"); //Cần xử lý hàm nhận bên server để dừng share
-                btScreenShare.Text = "Screen share";
-            }
+            VideoTimer.Stop();
+            ScreenTimer.Start();
         }
 
+
+        private Bitmap screenshotGet()
+        {
+            System.Drawing.Rectangle bounds = Screen.GetBounds(System.Drawing.Point.Empty);
+            Bitmap screenShot = new Bitmap(bounds.Width, bounds.Height);
+            using (Graphics g = Graphics.FromImage(screenShot))
+            {
+                g.CopyFromScreen(System.Drawing.Point.Empty, System.Drawing.Point.Empty, bounds.Size);
+            }
+            return screenShot;
+        }
+
+        private void VideoTimer_Tick(object sender, EventArgs e)
+        {
+            Mat frame = new Mat();
+            capture.Read(frame);
+            ptbYou.Image = BitmapConverter.ToBitmap(frame);
+            Byte[] imageBytes = frame.ToBytes();
+            streamPic.Write(imageBytes, 0, imageBytes.Length);
+        }
+
+        private void ScreenTimer_Tick(object sender, EventArgs e)
+        {
+            // Chụp ảnh màn hình hiện tại
+            Bitmap screenShot = screenshotGet();
+            // Chuyển đổi ảnh sang mảng byte để truyền qua socket
+            byte[] imageBytes;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                screenShot.Save(ms, ImageFormat.Jpeg);
+                imageBytes = ms.ToArray();
+                streamPic.Write(imageBytes, 0, imageBytes.Length);
+
+            }
+            ptbImage.Image = screenShot;
+        }
+
+        private void Client_Load(object sender, EventArgs e)
+        {
+            capture = new VideoCapture(0);
+        }
     }
 }

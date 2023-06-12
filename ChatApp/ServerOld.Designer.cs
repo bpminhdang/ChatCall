@@ -1,6 +1,6 @@
 ﻿namespace ChatApp
 {
-    partial class Server
+    partial class ServerOld
     {
         /// <summary>
         /// Required designer variable.
@@ -31,6 +31,7 @@
             components = new System.ComponentModel.Container();
             btListen = new Button();
             rtbRecv = new RichTextBox();
+            rtbSend = new RichTextBox();
             lbStatus = new Label();
             tbMessage = new TextBox();
             btSend = new Button();
@@ -39,9 +40,7 @@
             ptbImage = new PictureBox();
             VideoTimer = new System.Windows.Forms.Timer(components);
             ScreenTimer = new System.Windows.Forms.Timer(components);
-            ptbYou = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)ptbImage).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)ptbYou).BeginInit();
             SuspendLayout();
             // 
             // btListen
@@ -57,11 +56,21 @@
             // rtbRecv
             // 
             rtbRecv.BorderStyle = BorderStyle.None;
-            rtbRecv.Location = new Point(28, 89);
+            rtbRecv.Location = new Point(28, 117);
             rtbRecv.Name = "rtbRecv";
-            rtbRecv.Size = new Size(248, 399);
+            rtbRecv.Size = new Size(444, 371);
             rtbRecv.TabIndex = 1;
             rtbRecv.Text = "";
+            // 
+            // rtbSend
+            // 
+            rtbSend.BorderStyle = BorderStyle.None;
+            rtbSend.Location = new Point(489, 117);
+            rtbSend.Name = "rtbSend";
+            rtbSend.RightToLeft = RightToLeft.Yes;
+            rtbSend.Size = new Size(428, 371);
+            rtbSend.TabIndex = 2;
+            rtbSend.Text = "";
             // 
             // lbStatus
             // 
@@ -111,10 +120,9 @@
             // 
             // ptbImage
             // 
-            ptbImage.Location = new Point(282, 89);
+            ptbImage.Location = new Point(28, 89);
             ptbImage.Name = "ptbImage";
-            ptbImage.Size = new Size(651, 399);
-            ptbImage.SizeMode = PictureBoxSizeMode.CenterImage;
+            ptbImage.Size = new Size(905, 399);
             ptbImage.TabIndex = 8;
             ptbImage.TabStop = false;
             // 
@@ -127,35 +135,23 @@
             ScreenTimer.Interval = 16;
             ScreenTimer.Tick += ScreenTimer_Tick;
             // 
-            // ptbYou
-            // 
-            ptbYou.Location = new Point(956, 365);
-            ptbYou.Name = "ptbYou";
-            ptbYou.Size = new Size(178, 123);
-            ptbYou.SizeMode = PictureBoxSizeMode.CenterImage;
-            ptbYou.TabIndex = 19;
-            ptbYou.TabStop = false;
-            ptbYou.Visible = false;
-            // 
             // Server
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1146, 554);
-            Controls.Add(ptbYou);
+            ClientSize = new Size(959, 554);
             Controls.Add(btScreenShare);
             Controls.Add(btCall);
             Controls.Add(btSend);
             Controls.Add(tbMessage);
             Controls.Add(lbStatus);
+            Controls.Add(rtbSend);
             Controls.Add(rtbRecv);
             Controls.Add(btListen);
             Controls.Add(ptbImage);
             Name = "Server";
             Text = "Server";
-            Load += Server_Load;
             ((System.ComponentModel.ISupportInitialize)ptbImage).EndInit();
-            ((System.ComponentModel.ISupportInitialize)ptbYou).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -164,6 +160,7 @@
 
         private Button btListen;
         private RichTextBox rtbRecv;
+        private RichTextBox rtbSend;
         private Label lbStatus;
         private TextBox tbMessage;
         private Button btSend;
@@ -172,6 +169,5 @@
         private PictureBox ptbImage;
         private System.Windows.Forms.Timer VideoTimer;
         private System.Windows.Forms.Timer ScreenTimer;
-        private PictureBox ptbYou;
     }
 }

@@ -28,7 +28,7 @@ namespace ChatApp
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Client client = new Client();
+            ClientOld client = new ClientOld();
             client.Show();
         }
     }

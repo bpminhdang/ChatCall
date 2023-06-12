@@ -1,6 +1,6 @@
 ﻿namespace ChatApp
 {
-    partial class Client
+    partial class ClientOld
     {
         /// <summary>
         /// Required designer variable.
@@ -35,22 +35,19 @@
             btSend = new Button();
             tbMessage = new TextBox();
             lbStatus = new Label();
+            rtbSend = new RichTextBox();
             rtbRecv = new RichTextBox();
             btConnect = new Button();
             VideoTimer = new System.Windows.Forms.Timer(components);
             ScreenTimer = new System.Windows.Forms.Timer(components);
-            ptbYou = new PictureBox();
-            textBox1 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)ptbImage).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)ptbYou).BeginInit();
             SuspendLayout();
             // 
             // ptbImage
             // 
-            ptbImage.Location = new Point(253, 73);
+            ptbImage.Location = new Point(14, 73);
             ptbImage.Name = "ptbImage";
-            ptbImage.Size = new Size(482, 393);
-            ptbImage.SizeMode = PictureBoxSizeMode.CenterImage;
+            ptbImage.Size = new Size(905, 393);
             ptbImage.TabIndex = 17;
             ptbImage.TabStop = false;
             // 
@@ -100,12 +97,22 @@
             lbStatus.TabIndex = 12;
             lbStatus.Text = "lbStatus";
             // 
+            // rtbSend
+            // 
+            rtbSend.BorderStyle = BorderStyle.None;
+            rtbSend.Location = new Point(475, 95);
+            rtbSend.Name = "rtbSend";
+            rtbSend.RightToLeft = RightToLeft.Yes;
+            rtbSend.Size = new Size(428, 371);
+            rtbSend.TabIndex = 11;
+            rtbSend.Text = "";
+            // 
             // rtbRecv
             // 
             rtbRecv.BorderStyle = BorderStyle.None;
             rtbRecv.Location = new Point(14, 95);
             rtbRecv.Name = "rtbRecv";
-            rtbRecv.Size = new Size(210, 371);
+            rtbRecv.Size = new Size(455, 371);
             rtbRecv.TabIndex = 10;
             rtbRecv.Text = "";
             // 
@@ -119,52 +126,23 @@
             btConnect.UseVisualStyleBackColor = true;
             btConnect.Click += btConnect_Click;
             // 
-            // VideoTimer
-            // 
-            VideoTimer.Tick += VideoTimer_Tick;
-            // 
-            // ScreenTimer
-            // 
-            ScreenTimer.Tick += ScreenTimer_Tick;
-            // 
-            // ptbYou
-            // 
-            ptbYou.Location = new Point(741, 343);
-            ptbYou.Name = "ptbYou";
-            ptbYou.Size = new Size(178, 123);
-            ptbYou.SizeMode = PictureBoxSizeMode.CenterImage;
-            ptbYou.TabIndex = 18;
-            ptbYou.TabStop = false;
-            ptbYou.Visible = false;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(753, 73);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(150, 31);
-            textBox1.TabIndex = 19;
-            textBox1.Text = "10.0.138.40";
-            // 
             // Client
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(937, 526);
-            Controls.Add(textBox1);
-            Controls.Add(ptbYou);
             Controls.Add(btScreenShare);
             Controls.Add(btCall);
             Controls.Add(btSend);
             Controls.Add(tbMessage);
             Controls.Add(lbStatus);
+            Controls.Add(rtbSend);
             Controls.Add(rtbRecv);
             Controls.Add(btConnect);
             Controls.Add(ptbImage);
             Name = "Client";
             Text = "Client";
-            Load += Client_Load;
             ((System.ComponentModel.ISupportInitialize)ptbImage).EndInit();
-            ((System.ComponentModel.ISupportInitialize)ptbYou).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -177,11 +155,10 @@
         private Button btSend;
         private TextBox tbMessage;
         private Label lbStatus;
+        private RichTextBox rtbSend;
         private RichTextBox rtbRecv;
         private Button btConnect;
         private System.Windows.Forms.Timer VideoTimer;
         private System.Windows.Forms.Timer ScreenTimer;
-        private PictureBox ptbYou;
-        private TextBox textBox1;
     }
 }
