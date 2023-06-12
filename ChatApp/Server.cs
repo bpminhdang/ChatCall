@@ -103,15 +103,17 @@ namespace ChatApp
                                 System.Drawing.Image image = System.Drawing.Image.FromStream(ms);
                                 ptbImage.Image = image;
                                 int temp = int.Parse(label1.Text);
-                                    temp++;
+                                temp++;
                                 label1.Text = temp.ToString();
                                 //MessageBox.Show("Server nhan 1 anh");
 
                             }
                         }
-                        catch (Exception ex) {
+                        catch (Exception ex)
+                        {
                             int temp = 0;
-                            label1.Text = temp.ToString(); continue; }
+                            label1.Text = temp.ToString(); continue;
+                        }
 
                     }
                 }
@@ -125,8 +127,9 @@ namespace ChatApp
             ptbYou.Image = BitmapConverter.ToBitmap(frame);
             Byte[] imageBytes = frame.ToBytes();
             streamPic.Write(imageBytes, 0, imageBytes.Length);
-            //  MessageBox.Show("Server gui 1 anh");
-
+            int temp = int.Parse(label2.Text);
+            temp++;
+            label1.Text = temp.ToString();
         }
 
         private void ScreenTimer_Tick(object sender, EventArgs e)

@@ -42,6 +42,7 @@
             ptbYou = new PictureBox();
             textBox1 = new TextBox();
             label1 = new Label();
+            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)ptbImage).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ptbYou).BeginInit();
             SuspendLayout();
@@ -155,11 +156,21 @@
             label1.TabIndex = 21;
             label1.Text = "0";
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(327, 30);
+            label2.Name = "label2";
+            label2.Size = new Size(22, 25);
+            label2.TabIndex = 22;
+            label2.Text = "0";
+            // 
             // Client
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(937, 526);
+            Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(textBox1);
             Controls.Add(ptbYou);
@@ -195,5 +206,6 @@
         private PictureBox ptbYou;
         private TextBox textBox1;
         private Label label1;
+        private Label label2;
     }
 }
