@@ -38,9 +38,9 @@ namespace ChatApp
         private void btListen_Click(object sender, EventArgs e)
         {
             // Khởi tạo server và bắt đầu lắng nghe kết nối
-            serverMess = new TcpListener(IPAddress.Any, 8081);
+            serverMess = new TcpListener(IPAddress.Any, 10000);
             serverMess.Start();
-            serverPic = new TcpListener(IPAddress.Any, 8082);
+            serverPic = new TcpListener(IPAddress.Any, 10001);
             serverPic.Start();
             // Khởi tạo task để lắng nghe kết nối và dữ liệu từ client
             Task.Run(() => ListenForClientsMess());
@@ -64,10 +64,18 @@ namespace ChatApp
                 while (message != null)
                 {
                     message = readerMess.ReadLine();
-                    if (message != null)
+                    if (message == "//Call")
                     {
-                        rtbRecv.Text += message + "\n";
+                        //DialogResult dg = MessageBox.Show("Call", "Call request", MessageBoxButtons.YesNo);
+                        //if (dg == DialogResult.Yes)
+                        //{
+                        //    Call();
+                        //}
+                        Call();
                     }
+
+                    rtbRecv.Text += message + "\n";
+
                 }
             }
         }
@@ -82,7 +90,6 @@ namespace ChatApp
                 streamPic = clientPic.GetStream();
                 while (clientPic.Connected)
                 {
-
                     if (streamPic != null)
                     {
                         //VideoTimer.Stop();
@@ -133,11 +140,16 @@ namespace ChatApp
 
         private void btCall_Click(object sender, EventArgs e)
         {
+            Call();
+
+        }
+
+        private void Call()
+        {
             ptbYou.Visible = true;
             ScreenTimer.Stop();
             VideoTimer.Start();
             messageSend("//Call");
-
         }
 
         private void btScreenShare_Click(object sender, EventArgs e)

@@ -41,9 +41,9 @@ namespace ChatApp
             try
             {
                 clientMess = new TcpClient();
-                clientMess.Connect(textBox1.Text, 8081);
+                clientMess.Connect(textBox1.Text, 10000);
                 clientPic = new TcpClient();
-                clientPic.Connect(textBox1.Text, 8082);
+                clientPic.Connect(textBox1.Text, 10001);
                 streamPic = clientPic.GetStream();
                 readerMess = new StreamReader(clientMess.GetStream());
                 writerMess = new StreamWriter(clientMess.GetStream());
@@ -56,13 +56,12 @@ namespace ChatApp
                         string data = readerMess.ReadLine();
                         if (data == "//Call")
                         {
-                            DialogResult dg = MessageBox.Show("Call", "Call request", MessageBoxButtons.YesNo);
-                            if (dg == DialogResult.Yes)
-                            {
-                                ScreenTimer.Stop();
-                                VideoTimer.Start();
-                                ptbYou.Visible = true;
-                            }
+                            //DialogResult dg = MessageBox.Show("Call", "Call request", MessageBoxButtons.YesNo);
+                            //if (dg == DialogResult.Yes)
+                            //{
+                            //    Call();
+                            //}
+                            Call();
                         }
                         rtbRecv.Text += data + "\n";
                     }
@@ -103,17 +102,33 @@ namespace ChatApp
 
         private void bt_Send_Click(object sender, EventArgs e)
         {
-            string text = tbMessage.Text;
-            writerMess.WriteLine(text);
-            writerMess.Flush();
-            tbMessage.Clear();
+            messageSend(tbMessage.Text);
+        }
+
+        private void messageSend(string s)
+        {
+            // Gửi dữ liệu từ textbox đến client khi người dùng nhấn nút
+            if (writerMess != null)
+            {
+                writerMess.WriteLine(s);
+                writerMess.Flush();
+            }
         }
 
         private void btCall_Click(object sender, EventArgs e)
         {
+            Call();
+            messageSend("//Call");
+
+        }
+
+        private void Call()
+        {
+            ptbYou.Visible = true;
             ScreenTimer.Stop();
             VideoTimer.Start();
         }
+
 
         private void btScreenShare_Click(object sender, EventArgs e)
         {
