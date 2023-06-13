@@ -67,6 +67,7 @@
             tbMessage.Name = "tbMessage";
             tbMessage.Size = new Size(890, 31);
             tbMessage.TabIndex = 4;
+            tbMessage.KeyDown += tbMessage_KeyDown;
             // 
             // btSend
             // 

@@ -101,6 +101,7 @@ namespace ChatApp
         private void btSend_Click(object sender, EventArgs e)
         {
             messageSend(tbMessage.Text);
+            tbMessage.Clear();
         }
 
         private void tbMessage_KeyDown(object sender, KeyEventArgs e)

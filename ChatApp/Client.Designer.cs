@@ -46,6 +46,7 @@
             tbMessage.Name = "tbMessage";
             tbMessage.Size = new Size(888, 31);
             tbMessage.TabIndex = 13;
+            tbMessage.KeyDown += tbMessage_KeyDown;
             // 
             // lbStatus
             // 

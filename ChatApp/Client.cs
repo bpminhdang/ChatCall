@@ -17,6 +17,8 @@ using OpenCvSharp.Extensions;
 using System.Text.RegularExpressions;
 using System.Drawing.Imaging;
 using Gst.Rtsp;
+using VisioForge.Libs.MediaFoundation.OPM;
+using VisioForge.Libs.NDI;
 
 namespace ChatApp
 {
@@ -115,7 +117,19 @@ namespace ChatApp
             }
         }
 
+        private void tbMessage_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                // Thực hiện hành động ở đây
+                // Ví dụ: Gọi phương thức Button_Click
 
+                bt_Send_Click(sender, e);
 
+                // Ngăn không cho phím Enter tiếp tục được xử lý
+                e.SuppressKeyPress = true;
+            }
+        }
+        
     }
 }
