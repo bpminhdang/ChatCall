@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Server));
-            rtbRecv = new RichTextBox();
             lbStatus = new Label();
             tbMessage = new TextBox();
             btSend = new Addon_Custom_Button();
@@ -37,30 +36,21 @@
             btCall = new Addon_Custom_Button();
             btListen = new Addon_Custom_Button();
             rtbSend = new RichTextBox();
+            comboBox1 = new ComboBox();
+            label2 = new Label();
+            rtbRecv = new RichTextBox();
             SuspendLayout();
-            // 
-            // rtbRecv
-            // 
-            rtbRecv.BorderStyle = BorderStyle.None;
-            rtbRecv.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            rtbRecv.Location = new Point(28, 89);
-            rtbRecv.Margin = new Padding(2);
-            rtbRecv.Name = "rtbRecv";
-            rtbRecv.Size = new Size(533, 453);
-            rtbRecv.TabIndex = 1;
-            rtbRecv.Text = "";
             // 
             // lbStatus
             // 
             lbStatus.AutoSize = true;
             lbStatus.Font = new Font("Segoe UI", 9F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
-            lbStatus.ForeColor = Color.FromArgb(255, 104, 40);
+            lbStatus.ForeColor = Color.FromArgb(160, 63, 40);
             lbStatus.Location = new Point(40, 45);
             lbStatus.Margin = new Padding(2, 0, 2, 0);
             lbStatus.Name = "lbStatus";
-            lbStatus.Size = new Size(83, 25);
+            lbStatus.Size = new Size(0, 25);
             lbStatus.TabIndex = 3;
-            lbStatus.Text = "lbStatus";
             // 
             // tbMessage
             // 
@@ -163,12 +153,46 @@
             rtbSend.Text = "";
             rtbSend.TextChanged += rtbSend_TextChanged;
             // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(359, 42);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(241, 33);
+            comboBox1.TabIndex = 34;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            label2.ForeColor = Color.FromArgb(160, 63, 40);
+            label2.Location = new Point(209, 45);
+            label2.Margin = new Padding(2, 0, 2, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(145, 25);
+            label2.TabIndex = 36;
+            label2.Text = "Your IP Address";
+            // 
+            // rtbRecv
+            // 
+            rtbRecv.BorderStyle = BorderStyle.None;
+            rtbRecv.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            rtbRecv.Location = new Point(28, 113);
+            rtbRecv.Margin = new Padding(2);
+            rtbRecv.Name = "rtbRecv";
+            rtbRecv.Size = new Size(556, 441);
+            rtbRecv.TabIndex = 37;
+            rtbRecv.Text = "";
+            // 
             // Server
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(255, 251, 255);
             ClientSize = new Size(1126, 631);
+            Controls.Add(rtbRecv);
+            Controls.Add(label2);
+            Controls.Add(comboBox1);
             Controls.Add(rtbSend);
             Controls.Add(btSend);
             Controls.Add(btScreenShare);
@@ -176,18 +200,16 @@
             Controls.Add(btListen);
             Controls.Add(tbMessage);
             Controls.Add(lbStatus);
-            Controls.Add(rtbRecv);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(2);
             Name = "Server";
             Text = "Server";
+            Load += Server_Load;
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private RichTextBox rtbRecv;
         private Label lbStatus;
         private TextBox tbMessage;
         private Addon_Custom_Button btSend;
@@ -195,5 +217,8 @@
         private Addon_Custom_Button btCall;
         private Addon_Custom_Button btListen;
         private RichTextBox rtbSend;
+        private ComboBox comboBox1;
+        private Label label2;
+        private RichTextBox rtbRecv;
     }
 }

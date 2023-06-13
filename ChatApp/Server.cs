@@ -1,6 +1,7 @@
 ﻿using System.Net.Sockets;
 using System.Net;
 using System.Windows.Forms;
+using System.Net.NetworkInformation;
 
 namespace ChatApp
 {
@@ -115,7 +116,7 @@ namespace ChatApp
             {
                 writerMess.WriteLine(s);
                 writerMess.Flush();
-                rtbSend.Text += s + " :Server"+ "\n";
+                rtbSend.Text += s + " :Server" + "\n";
                 rtbRecv.Text += "\n";
             }
         }
@@ -135,6 +136,30 @@ namespace ChatApp
         {
             rtbSend.SelectAll();
             rtbSend.SelectionAlignment = HorizontalAlignment.Right;
+            rtbSend.ScrollToCaret();
+        }
+
+        private void Server_Load(object sender, EventArgs e)
+        {
+            string ipv4Address = "";
+            foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (ni.OperationalStatus == OperationalStatus.Up && ni.NetworkInterfaceType != NetworkInterfaceType.Loopback)
+                {
+                    foreach (UnicastIPAddressInformation ip in ni.GetIPProperties().UnicastAddresses)
+                    {
+                        if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                        {
+                            comboBox1.Items.Add(ip.Address.ToString() + " " + ni.Name.ToString());
+                            comboBox1.Text = ip.Address.ToString();
+                        }
+                    }
+                }
+                if (!string.IsNullOrEmpty(ipv4Address))
+                {
+                    break;
+                }
+            }
         }
     }
 

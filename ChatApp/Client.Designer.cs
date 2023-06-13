@@ -38,6 +38,7 @@
             btCall = new Addon_Custom_Button();
             btConnect = new Addon_Custom_Button();
             rtbSend = new RichTextBox();
+            label2 = new Label();
             SuspendLayout();
             // 
             // tbMessage
@@ -57,9 +58,8 @@
             lbStatus.Location = new Point(25, 45);
             lbStatus.Margin = new Padding(2, 0, 2, 0);
             lbStatus.Name = "lbStatus";
-            lbStatus.Size = new Size(83, 25);
+            lbStatus.Size = new Size(0, 25);
             lbStatus.TabIndex = 12;
-            lbStatus.Text = "lbStatus";
             // 
             // rtbRecv
             // 
@@ -75,10 +75,10 @@
             // textBox1
             // 
             textBox1.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            textBox1.Location = new Point(130, 41);
+            textBox1.Location = new Point(366, 42);
             textBox1.Margin = new Padding(2);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(150, 31);
+            textBox1.Size = new Size(245, 31);
             textBox1.TabIndex = 19;
             textBox1.Text = "127.0.0.1";
             // 
@@ -174,12 +174,25 @@
             rtbSend.Text = "";
             rtbSend.TextChanged += richTextBox1_TextChanged;
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            label2.ForeColor = Color.FromArgb(160, 63, 40);
+            label2.Location = new Point(204, 48);
+            label2.Margin = new Padding(2, 0, 2, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(158, 25);
+            label2.TabIndex = 37;
+            label2.Text = "Server IP Address";
+            // 
             // Client
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(255, 251, 255);
             ClientSize = new Size(1126, 631);
+            Controls.Add(label2);
             Controls.Add(rtbSend);
             Controls.Add(btSend);
             Controls.Add(btScreenShare);
@@ -207,5 +220,6 @@
         private Addon_Custom_Button btCall;
         private Addon_Custom_Button btConnect;
         private RichTextBox rtbSend;
+        private Label label2;
     }
 }

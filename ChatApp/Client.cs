@@ -58,7 +58,7 @@ namespace ChatApp
                             btScreenShare.Text = "Accept";
                         else
                         {
-                            rtbRecv.Text += "Server: "+ message + "\n";
+                            rtbRecv.Text += "Server: " + message + "\n";
                             rtbSend.Text += "\n";
                         }
                     }
@@ -135,6 +135,8 @@ namespace ChatApp
         {
             rtbSend.SelectAll();
             rtbSend.SelectionAlignment = HorizontalAlignment.Right;
+            rtbSend.ScrollToCaret();
+
         }
     }
 }
