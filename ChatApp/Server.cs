@@ -1,5 +1,6 @@
 ﻿using System.Net.Sockets;
 using System.Net;
+using System.Windows.Forms;
 
 namespace ChatApp
 {
@@ -51,7 +52,10 @@ namespace ChatApp
                         else if (message == "//Screen share")
                             btScreenShare.Text = "Accept";
                         else
-                            rtbRecv.Text += message + "\n";
+                        {
+                            rtbRecv.Text += "Client: " + message + "\n";
+                            rtbSend.Text += "\n";
+                        }
                     }
                 }
             }
@@ -104,24 +108,34 @@ namespace ChatApp
             tbMessage.Clear();
         }
 
-        private void tbMessage_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                messageSend(tbMessage.Text);
-                e.SuppressKeyPress = true;
-            }
-        }
+
         private void messageSend(string s)
         {
             if (writerMess != null)
             {
                 writerMess.WriteLine(s);
                 writerMess.Flush();
+                rtbSend.Text += s + " :Server"+ "\n";
+                rtbRecv.Text += "\n";
+            }
+        }
+
+        private void tbMessage_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+
+                messageSend(tbMessage.Text);
+                tbMessage.Clear();
             }
         }
 
 
+        private void rtbSend_TextChanged(object sender, EventArgs e)
+        {
+            rtbSend.SelectAll();
+            rtbSend.SelectionAlignment = HorizontalAlignment.Right;
+        }
     }
 
 }

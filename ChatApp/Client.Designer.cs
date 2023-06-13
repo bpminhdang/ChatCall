@@ -37,6 +37,7 @@
             btScreenShare = new Addon_Custom_Button();
             btCall = new Addon_Custom_Button();
             btConnect = new Addon_Custom_Button();
+            rtbSend = new RichTextBox();
             SuspendLayout();
             // 
             // tbMessage
@@ -44,7 +45,7 @@
             tbMessage.Location = new Point(14, 571);
             tbMessage.Margin = new Padding(2);
             tbMessage.Name = "tbMessage";
-            tbMessage.Size = new Size(888, 31);
+            tbMessage.Size = new Size(912, 31);
             tbMessage.TabIndex = 13;
             tbMessage.KeyDown += tbMessage_KeyDown;
             // 
@@ -63,10 +64,11 @@
             // rtbRecv
             // 
             rtbRecv.BorderStyle = BorderStyle.None;
+            rtbRecv.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
             rtbRecv.Location = new Point(14, 106);
             rtbRecv.Margin = new Padding(2);
             rtbRecv.Name = "rtbRecv";
-            rtbRecv.Size = new Size(518, 441);
+            rtbRecv.Size = new Size(556, 441);
             rtbRecv.TabIndex = 10;
             rtbRecv.Text = "";
             // 
@@ -98,6 +100,7 @@
             btSend.Text = "Send";
             btSend.TextColor = Color.FromArgb(252, 249, 248);
             btSend.UseVisualStyleBackColor = false;
+            btSend.Click += bt_Send_Click;
             // 
             // btScreenShare
             // 
@@ -117,6 +120,7 @@
             btScreenShare.Text = "Screen share";
             btScreenShare.TextColor = Color.FromArgb(73, 103, 39);
             btScreenShare.UseVisualStyleBackColor = false;
+            btScreenShare.Click += btScreenShare_Click;
             // 
             // btCall
             // 
@@ -136,6 +140,7 @@
             btCall.Text = "Call";
             btCall.TextColor = Color.FromArgb(73, 103, 39);
             btCall.UseVisualStyleBackColor = false;
+            btCall.Click += btCall_Click;
             // 
             // btConnect
             // 
@@ -155,6 +160,19 @@
             btConnect.Text = "Connect";
             btConnect.TextColor = Color.FromArgb(252, 249, 248);
             btConnect.UseVisualStyleBackColor = false;
+            btConnect.Click += btConnect_Click;
+            // 
+            // rtbSend
+            // 
+            rtbSend.BorderStyle = BorderStyle.None;
+            rtbSend.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            rtbSend.Location = new Point(574, 110);
+            rtbSend.Margin = new Padding(2);
+            rtbSend.Name = "rtbSend";
+            rtbSend.Size = new Size(550, 441);
+            rtbSend.TabIndex = 28;
+            rtbSend.Text = "";
+            rtbSend.TextChanged += richTextBox1_TextChanged;
             // 
             // Client
             // 
@@ -162,6 +180,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(255, 251, 255);
             ClientSize = new Size(1126, 631);
+            Controls.Add(rtbSend);
             Controls.Add(btSend);
             Controls.Add(btScreenShare);
             Controls.Add(btCall);
@@ -187,5 +206,6 @@
         private Addon_Custom_Button btScreenShare;
         private Addon_Custom_Button btCall;
         private Addon_Custom_Button btConnect;
+        private RichTextBox rtbSend;
     }
 }

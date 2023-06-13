@@ -57,7 +57,10 @@ namespace ChatApp
                         else if (message == "//Screen share")
                             btScreenShare.Text = "Accept";
                         else
-                            rtbRecv.Text += message + "\n";
+                        {
+                            rtbRecv.Text += "Server: "+ message + "\n";
+                            rtbSend.Text += "\n";
+                        }
                     }
                 });
 
@@ -80,6 +83,8 @@ namespace ChatApp
         {
             writerMess.WriteLine(message);
             writerMess.Flush();
+            rtbSend.Text += message + " :Client" + "\n";
+            rtbRecv.Text += "\n";
         }
 
         private void btCall_Click(object sender, EventArgs e)
@@ -121,15 +126,15 @@ namespace ChatApp
         {
             if (e.KeyCode == Keys.Enter)
             {
-                // Thực hiện hành động ở đây
-                // Ví dụ: Gọi phương thức Button_Click
-
-                bt_Send_Click(sender, e);
-
-                // Ngăn không cho phím Enter tiếp tục được xử lý
-                e.SuppressKeyPress = true;
+                messageSend(tbMessage.Text);
+                tbMessage.Clear();
             }
         }
-        
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            rtbSend.SelectAll();
+            rtbSend.SelectionAlignment = HorizontalAlignment.Right;
+        }
     }
 }

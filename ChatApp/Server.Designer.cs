@@ -36,15 +36,17 @@
             btScreenShare = new Addon_Custom_Button();
             btCall = new Addon_Custom_Button();
             btListen = new Addon_Custom_Button();
+            rtbSend = new RichTextBox();
             SuspendLayout();
             // 
             // rtbRecv
             // 
             rtbRecv.BorderStyle = BorderStyle.None;
+            rtbRecv.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
             rtbRecv.Location = new Point(28, 89);
             rtbRecv.Margin = new Padding(2);
             rtbRecv.Name = "rtbRecv";
-            rtbRecv.Size = new Size(426, 399);
+            rtbRecv.Size = new Size(533, 453);
             rtbRecv.TabIndex = 1;
             rtbRecv.Text = "";
             // 
@@ -87,6 +89,7 @@
             btSend.Text = "Send";
             btSend.TextColor = Color.FromArgb(252, 249, 248);
             btSend.UseVisualStyleBackColor = false;
+            btSend.Click += btSend_Click;
             // 
             // btScreenShare
             // 
@@ -106,6 +109,7 @@
             btScreenShare.Text = "Screen share";
             btScreenShare.TextColor = Color.FromArgb(166, 76, 54);
             btScreenShare.UseVisualStyleBackColor = false;
+            btScreenShare.Click += btScreenShare_Click;
             // 
             // btCall
             // 
@@ -125,6 +129,7 @@
             btCall.Text = "Call";
             btCall.TextColor = Color.FromArgb(166, 76, 54);
             btCall.UseVisualStyleBackColor = false;
+            btCall.Click += btCall_Click;
             // 
             // btListen
             // 
@@ -144,6 +149,19 @@
             btListen.Text = "Listen";
             btListen.TextColor = Color.FromArgb(252, 249, 248);
             btListen.UseVisualStyleBackColor = false;
+            btListen.Click += btListen_Click;
+            // 
+            // rtbSend
+            // 
+            rtbSend.BorderStyle = BorderStyle.None;
+            rtbSend.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            rtbSend.Location = new Point(565, 92);
+            rtbSend.Margin = new Padding(2);
+            rtbSend.Name = "rtbSend";
+            rtbSend.Size = new Size(550, 441);
+            rtbSend.TabIndex = 33;
+            rtbSend.Text = "";
+            rtbSend.TextChanged += rtbSend_TextChanged;
             // 
             // Server
             // 
@@ -151,6 +169,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(255, 251, 255);
             ClientSize = new Size(1126, 631);
+            Controls.Add(rtbSend);
             Controls.Add(btSend);
             Controls.Add(btScreenShare);
             Controls.Add(btCall);
@@ -175,5 +194,6 @@
         private Addon_Custom_Button btScreenShare;
         private Addon_Custom_Button btCall;
         private Addon_Custom_Button btListen;
+        private RichTextBox rtbSend;
     }
 }
