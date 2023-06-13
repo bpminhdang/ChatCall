@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Server));
             rtbRecv = new RichTextBox();
             lbStatus = new Label();
             tbMessage = new TextBox();
@@ -155,7 +156,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(255, 251, 255);
+            BackColor = Color.FromArgb(254, 252, 246);
             ClientSize = new Size(901, 505);
             Controls.Add(btSend);
             Controls.Add(btScreenShare);
@@ -164,6 +165,7 @@
             Controls.Add(tbMessage);
             Controls.Add(lbStatus);
             Controls.Add(rtbRecv);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(2);
             Name = "Server";
             Text = "Server";

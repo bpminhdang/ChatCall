@@ -11,9 +11,9 @@ using System.Xml.Schema;
 
 namespace ChatApp
 {
-    public partial class Form1 : Form
+    public partial class Menu : Form
     {
-        public Form1()
+        public Menu()
         {
             InitializeComponent();
         }
@@ -30,6 +30,18 @@ namespace ChatApp
         {
             //ClientOld client = new ClientOld();
             //client.Show();
+        }
+
+        private void btServer_Click(object sender, EventArgs e)
+        {
+            Server server = new Server();
+            server.Show();
+        }
+
+        private void btClient_Click(object sender, EventArgs e)
+        {
+            Client client = new Client();
+            client.Show();
         }
     }
 }

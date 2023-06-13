@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Client));
             tbMessage = new TextBox();
             lbStatus = new Label();
             rtbRecv = new RichTextBox();
@@ -176,6 +177,7 @@
             Controls.Add(tbMessage);
             Controls.Add(lbStatus);
             Controls.Add(rtbRecv);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(2);
             Name = "Client";
             Text = "Client";
