@@ -43,7 +43,7 @@
             // 
             // tbMessage
             // 
-            tbMessage.Location = new Point(14, 571);
+            tbMessage.Location = new Point(11, 585);
             tbMessage.Margin = new Padding(2);
             tbMessage.Name = "tbMessage";
             tbMessage.Size = new Size(912, 31);
@@ -178,8 +178,8 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
-            label2.ForeColor = Color.FromArgb(160, 63, 40);
-            label2.Location = new Point(204, 48);
+            label2.ForeColor = Color.FromArgb(73, 103, 39);
+            label2.Location = new Point(195, 45);
             label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
             label2.Size = new Size(158, 25);

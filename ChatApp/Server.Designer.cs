@@ -54,7 +54,7 @@
             // 
             // tbMessage
             // 
-            tbMessage.Location = new Point(28, 571);
+            tbMessage.Location = new Point(40, 571);
             tbMessage.Margin = new Padding(2);
             tbMessage.Name = "tbMessage";
             tbMessage.Size = new Size(890, 31);
