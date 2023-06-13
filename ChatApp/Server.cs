@@ -103,6 +103,14 @@ namespace ChatApp
             messageSend(tbMessage.Text);
         }
 
+        private void tbMessage_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                messageSend(tbMessage.Text);
+                e.SuppressKeyPress = true;
+            }
+        }
         private void messageSend(string s)
         {
             if (writerMess != null)
@@ -114,17 +122,5 @@ namespace ChatApp
 
 
     }
-    private void tbMessage_KeyDown(object sender, KeyEventArgs e)
-    {
-        if (e.KeyCode == Keys.Enter)
-        {
-            // Thực hiện hành động ở đây
-            // Ví dụ: Gọi phương thức Button_Click
 
-            messageButton_Click(sender, e);
-
-            // Ngăn không cho phím Enter tiếp tục được xử lý
-            e.SuppressKeyPress = true;
-        }
-    }
 }
