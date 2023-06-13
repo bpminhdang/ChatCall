@@ -67,6 +67,7 @@
             tbMessage.Name = "tbMessage";
             tbMessage.Size = new Size(713, 27);
             tbMessage.TabIndex = 4;
+            tbMessage.KeyDown += tbMessage_KeyDown;
             // 
             // btListen
             // 

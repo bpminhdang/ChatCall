@@ -101,6 +101,7 @@ namespace ChatApp
         private void btSend_Click(object sender, EventArgs e)
         {
             messageSend(tbMessage.Text);
+            tbMessage.Clear();
         }
 
         private void messageSend(string s)
@@ -112,19 +113,18 @@ namespace ChatApp
             }
         }
 
-
-    }
-    private void tbMessage_KeyDown(object sender, KeyEventArgs e)
-    {
-        if (e.KeyCode == Keys.Enter)
+        private void tbMessage_KeyDown(object sender, KeyEventArgs e)
         {
-            // Thực hiện hành động ở đây
-            // Ví dụ: Gọi phương thức Button_Click
+            if (e.KeyCode == Keys.Enter)
+            {
+                // Thực hiện hành động ở đây
+                // Ví dụ: Gọi phương thức Button_Click
 
-            messageButton_Click(sender, e);
+                btSend_Click(sender, e);
 
-            // Ngăn không cho phím Enter tiếp tục được xử lý
-            e.SuppressKeyPress = true;
+                // Ngăn không cho phím Enter tiếp tục được xử lý
+                e.SuppressKeyPress = true;
+            }
         }
     }
 }
