@@ -44,12 +44,12 @@
             btServer.BorderSize = 0;
             btServer.FlatAppearance.BorderSize = 0;
             btServer.FlatStyle = FlatStyle.Flat;
-            btServer.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point);
+            btServer.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point);
             btServer.ForeColor = Color.FromArgb(252, 249, 248);
-            btServer.Location = new Point(102, 228);
+            btServer.Location = new Point(582, 190);
             btServer.Margin = new Padding(2);
             btServer.Name = "btServer";
-            btServer.Size = new Size(127, 54);
+            btServer.Size = new Size(197, 67);
             btServer.TabIndex = 9;
             btServer.Text = "Server";
             btServer.TextColor = Color.FromArgb(252, 249, 248);
@@ -65,12 +65,12 @@
             btClient.BorderSize = 0;
             btClient.FlatAppearance.BorderSize = 0;
             btClient.FlatStyle = FlatStyle.Flat;
-            btClient.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point);
+            btClient.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point);
             btClient.ForeColor = Color.FromArgb(252, 249, 248);
-            btClient.Location = new Point(102, 288);
+            btClient.Location = new Point(582, 278);
             btClient.Margin = new Padding(2);
             btClient.Name = "btClient";
-            btClient.Size = new Size(127, 54);
+            btClient.Size = new Size(197, 67);
             btClient.TabIndex = 21;
             btClient.Text = "Client";
             btClient.TextColor = Color.FromArgb(252, 249, 248);
@@ -81,24 +81,24 @@
             // 
             pictureBox1.BorderStyle = BorderStyle.FixedSingle;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(66, 12);
+            pictureBox1.Location = new Point(46, 51);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(200, 200);
+            pictureBox1.Size = new Size(400, 400);
             pictureBox1.TabIndex = 22;
             pictureBox1.TabStop = false;
             // 
-            // Form1
+            // Menu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(254, 252, 246);
-            ClientSize = new Size(352, 366);
+            ClientSize = new Size(901, 505);
             Controls.Add(pictureBox1);
             Controls.Add(btClient);
             Controls.Add(btServer);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(2);
-            Name = "Form1";
+            Name = "Menu";
             Text = "ChatChat";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
