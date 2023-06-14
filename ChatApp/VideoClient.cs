@@ -54,7 +54,7 @@ namespace ChatApp
                     Task.Run(() =>
                     {
                         if (Type == "Call")
-                            CallSend();//ScreenshotSend(); //CallSend() neu test 2 may
+                            CallSend();
                         else
                             ScreenshotSend();
 
